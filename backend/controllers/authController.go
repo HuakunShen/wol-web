@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/HuakunShen/golang-auth/database"
 	"github.com/HuakunShen/golang-auth/models"
 	"github.com/dgrijalva/jwt-go"
@@ -76,7 +75,6 @@ func Login(c *fiber.Ctx) error {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(validMinutes)
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
 		Issuer:    strconv.Itoa(int(user.Id)),
 		ExpiresAt: time.Now().Add(time.Hour * time.Duration(validMinutes)).Unix(), //1 day
@@ -107,7 +105,6 @@ func Login(c *fiber.Ctx) error {
 
 func User(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
-
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(SecretKey), nil
 	})
@@ -124,7 +121,12 @@ func User(c *fiber.Ctx) error {
 	var user models.User
 
 	database.DB.Where("id = ?", claims.Issuer).First(&user)
-
+	if user.Id == 0 {
+		c.Status(fiber.StatusNotFound)
+		return c.JSON(fiber.Map{
+			"message": "User Not Authenticated",
+		})
+	}
 	return c.JSON(user)
 }
 
