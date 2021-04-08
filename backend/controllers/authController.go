@@ -11,8 +11,6 @@ import (
 	"time"
 )
 
-const SecretKey = "secret"
-
 func Register(c *fiber.Ctx) error {
 	var data map[string]string
 
@@ -80,7 +78,7 @@ func Login(c *fiber.Ctx) error {
 		ExpiresAt: time.Now().Add(time.Hour * time.Duration(validMinutes)).Unix(), //1 day
 	})
 
-	token, err := claims.SignedString([]byte(SecretKey))
+	token, err := claims.SignedString([]byte(os.Getenv("JWT_SECRET")))
 
 	if err != nil {
 		c.Status(fiber.StatusInternalServerError)
@@ -106,7 +104,7 @@ func Login(c *fiber.Ctx) error {
 func User(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(SecretKey), nil
+		return []byte(os.Getenv("JWT_SECRET")), nil
 	})
 
 	if err != nil {
@@ -127,6 +125,7 @@ func User(c *fiber.Ctx) error {
 			"message": "User Not Authenticated",
 		})
 	}
+
 	return c.JSON(user)
 }
 
