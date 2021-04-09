@@ -2,14 +2,15 @@ package controllers
 
 import (
 	"fmt"
+	"os"
+	"strconv"
+	"time"
+
 	"github.com/HuakunShen/golang-auth/database"
 	"github.com/HuakunShen/golang-auth/models"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
-	"os"
-	"strconv"
-	"time"
 )
 
 func Register(ctx *fiber.Ctx) error {
@@ -40,13 +41,13 @@ func Register(ctx *fiber.Ctx) error {
 	}
 }
 
-func CreateToken(id uint, username string, validMinutes int64) (string, error) {
+func CreateToken(id uint, username string, validMinutes uint) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	// Set claims
 	claims := token.Claims.(jwt.MapClaims)
 	claims["username"] = username
 	claims["id"] = id
-	claims["exp"] = time.Now().Add(time.Minute * 2)
+	claims["exp"] = time.Now().Add(time.Minute * time.Duration(validMinutes))
 	// Generate encoded token and send it as response.
 	t, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
 	if err != nil {
@@ -74,8 +75,11 @@ func Login(ctx *fiber.Ctx) error {
 	var data map[string]string
 
 	if err := ctx.BodyParser(&data); err != nil {
-		return err
+		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "fail to parse",
+		})
 	}
+	fmt.Println(data)
 
 	var user models.User
 	if err := database.DB.Where("username = ?", data["username"]).First(&user).Error; err != nil {
@@ -92,12 +96,12 @@ func Login(ctx *fiber.Ctx) error {
 		})
 	}
 	validTimeMinutes := os.Getenv("JWT_VALID_TIME")
-	validMinutes, err := strconv.ParseInt(validTimeMinutes, 10, 64)
+	validMinutes, err := strconv.ParseInt(validTimeMinutes, 10, 32)
 	if err != nil {
 		panic(err)
 	}
 
-	token, err := CreateToken(user.Id, user.Username, validMinutes)
+	token, err := CreateToken(user.Id, user.Username, uint(validMinutes))
 
 	if err != nil {
 		ctx.Status(fiber.StatusInternalServerError)
