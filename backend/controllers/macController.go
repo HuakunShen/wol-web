@@ -43,7 +43,9 @@ func GetMac(ctx *fiber.Ctx) error {
 	userId := ctx.Locals("id")
 	var mac models.Mac
 	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).First(&mac).Error; err != nil {
-		fmt.Println(err)
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": err,
+		})
 	}
 	if mac.UserId != userId {
 		return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
@@ -66,15 +68,27 @@ func GetMacs(ctx *fiber.Ctx) error {
 }
 
 func DeleteMac(ctx *fiber.Ctx) error {
-	id := ctx.Params("id")
+	id, err := strconv.ParseUint(ctx.Params("id"), 10, 32)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Invalid ID",
+		})
+	}
 	userId := ctx.Locals("id")
 	var mac models.Mac
 
-	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).Delete(&mac); err != nil {
-		fmt.Println(err)
-		fmt.Println(err==nil)
+	// verify exist
+	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).First(&mac).Error; err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "Fail to delete, record doesn't Exists or you don't have permission",
+			"message": "Data to delete may not exist",
+			"error": fmt.Sprintf("%v", err),
+		})
+	}
+	// delete
+	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).Delete(&mac).Error; err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Fail to delete, record doesn't exists or you don't have permission",
+			"error": err,
 		})
 	}
 
