@@ -48,7 +48,7 @@ export default Vue.extend({
   methods: {
     ...mapMutations(['updateAuth']),
     ...mapActions(['login']),
-    async submit(e) {
+    async submit(e: Event) {
       e.preventDefault();
       if (this.username && this.password) {
         this.login({ username: this.username, password: this.password });

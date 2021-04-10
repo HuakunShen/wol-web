@@ -62,7 +62,7 @@ export default Vue.extend({
   methods: {
     ...mapMutations(['updateAuth']),
     ...mapActions(['signup']),
-    async submit(e) {
+    async submit(e: Event) {
       e.preventDefault();
       if (
         this.username &&

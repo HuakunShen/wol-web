@@ -79,7 +79,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions(['addComputer']),
-    submit(e) {
+    submit(e: Event) {
       e.preventDefault();
       this.addComputer({
         name: this.name,

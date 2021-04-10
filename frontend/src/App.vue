@@ -11,9 +11,10 @@ import { mapActions } from 'vuex';
 import Navbar from './components/Navbar.vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+
 export default Vue.extend({
   data() {
-    return { interval: null };
+    return { interval: undefined as number | undefined };
   },
   created() {
     this.loadAuth();
@@ -33,7 +34,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions(['loadAuth', 'loadComputers']),
-    logout() {
+    logout(): void {
       console.log('logout');
       this.$store.dispatch('logout');
     },
