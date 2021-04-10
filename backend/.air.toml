@@ -1,0 +1,5 @@
+# Working directory
+root = "."
+
+[build]
+exclude_dir = ["assets", "tmp", "vendor", "frontend/node_modules", "postgres_data]

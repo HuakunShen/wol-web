@@ -37,6 +37,7 @@ export default new Vuex.Store<State>({
       });
       if (res.status === 200) {
         commit('updateAuth', { isAuth: false, username: null });
+        commit('updateComputers', { computers: [] });
       } else {
         console.error('error: logout');
       }
@@ -74,7 +75,7 @@ export default new Vuex.Store<State>({
         commit('updateComputers', { computers: [] });
       }
     },
-    async login({ commit }, payload) {
+    async login({ commit, dispatch }, payload) {
       const { username, password } = payload;
       if (username && password) {
         const res = await fetch('/api/users/login', {
@@ -88,6 +89,7 @@ export default new Vuex.Store<State>({
             password: password,
           }),
         });
+        dispatch('loadComputers');
         const content = await res.json();
         if (res.status < 400) {
           console.log(content);

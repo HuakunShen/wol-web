@@ -81,7 +81,7 @@ func GetComputers(ctx *fiber.Ctx) error {
 			"error": err,
 		})
 	}
-	return ctx.Status(fiber.StatusFound).JSON(fiber.Map{"data": computers})
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{"data": computers})
 }
 
 func DeleteComputer(ctx *fiber.Ctx) error {

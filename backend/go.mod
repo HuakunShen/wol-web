@@ -14,6 +14,7 @@ require (
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/joho/godotenv v1.3.0 // indirect
 	github.com/klauspost/compress v1.11.13 // indirect
+	github.com/lib/pq v1.6.0 // indirect
 	github.com/mattn/go-sqlite3 v1.14.6 // indirect
 	github.com/pelletier/go-toml v1.9.0 // indirect
 	github.com/valyala/fasthttp v1.23.0 // indirect
@@ -21,6 +22,7 @@ require (
 	golang.org/x/crypto v0.0.0-20210314154223-e6e6c4f2bb5b // indirect
 	golang.org/x/sys v0.0.0-20210403161142-5e06dd20ab57 // indirect
 	gorm.io/driver/mysql v1.0.5 // indirect
+	gorm.io/driver/postgres v1.0.8 // indirect
 	gorm.io/driver/sqlite v1.1.4 // indirect
 	gorm.io/gorm v1.21.3 // indirect
 )

@@ -2,18 +2,19 @@ package database
 
 import (
 	"fmt"
-	"github.com/HuakunShen/wol-web/backend/models"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"os"
+
+	"github.com/HuakunShen/wol-web/backend/models"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
 func Connect() {
-	connection_string := fmt.Sprint(os.Getenv("DB_USERNAME"), ":", os.Getenv("DB_PASSWORD"), "@/", os.Getenv("DB_DATABASE"))
-	fmt.Println("connection_string: " + connection_string)
-	connection, err := gorm.Open(mysql.Open(connection_string), &gorm.Config{})
+	dsn := fmt.Sprint("host=" + os.Getenv("POSTGRES_HOST"), " user=" + os.Getenv("POSTGRES_USER"), " password=" + os.Getenv("POSTGRES_PASSWORD"), " dbname=", os.Getenv("POSTGRES_DB"), " port=" + os.Getenv("POSTGRES_PORT"), " sslmode=disable ", "TimeZone=", os.Getenv("POSTGRES_TIMESZONE"),)
+	fmt.Println(dsn)
+	connection, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
