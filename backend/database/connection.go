@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	"github.com/HuakunShen/golang-auth/models"
+	"github.com/HuakunShen/wol-web/backend/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"os"

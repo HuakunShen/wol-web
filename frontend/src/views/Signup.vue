@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 
 export default Vue.extend({
   data() {
@@ -61,6 +61,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapMutations(['updateAuth']),
+    ...mapActions(['signup']),
     async submit(e) {
       e.preventDefault();
       if (
@@ -68,26 +69,9 @@ export default Vue.extend({
         this.password &&
         this.password === this.passwordRepeat
       ) {
-        const res = await fetch('/api/users/register', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: this.username,
-            password: this.password,
-          }),
-        });
-        const content = await res.json();
-        if (res.status == 200) {
-          console.log(content);
-          this.updateAuth({ isAuth: true, username: this.username });
-        } else {
-          console.error(content.message);
-        }
+        this.signup({ username: this.username, password: this.password });
       } else {
-        console.error('error invalid input');
+        console.error('invalid input');
       }
     },
   },

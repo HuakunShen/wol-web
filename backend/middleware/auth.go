@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/HuakunShen/golang-auth/controllers"
+	"github.com/HuakunShen/wol-web/backend/controllers"
 	"github.com/gofiber/fiber/v2"
 )
 

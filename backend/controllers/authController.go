@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/HuakunShen/golang-auth/database"
-	"github.com/HuakunShen/golang-auth/models"
+	"github.com/HuakunShen/wol-web/backend/database"
+	"github.com/HuakunShen/wol-web/backend/models"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
@@ -26,6 +26,7 @@ func Register(ctx *fiber.Ctx) error {
 		ctx.Status(fiber.StatusBadRequest)
 		return ctx.JSON(fiber.Map{
 			"message": "invalid username or password",
+			"error": "invalid username or password",
 		})
 	}
 	user := models.User{
@@ -35,10 +36,13 @@ func Register(ctx *fiber.Ctx) error {
 	if err := database.DB.Create(&user).Error; err != nil {
 		return ctx.Status(fiber.StatusConflict).JSON(fiber.Map{
 			"message": "Username Exists, Try Another One",
+			"error": err,
 		})
-	} else {
-		return ctx.Status(fiber.StatusCreated).JSON(user)
 	}
+	return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"message": "success",
+		"data": user,
+	})
 }
 
 func CreateToken(id uint, username string, validMinutes uint) (string, error) {
@@ -77,15 +81,16 @@ func Login(ctx *fiber.Ctx) error {
 	if err := ctx.BodyParser(&data); err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "fail to parse",
+			"error": err,
 		})
 	}
-	fmt.Println(data)
 
 	var user models.User
 	if err := database.DB.Where("username = ?", data["username"]).First(&user).Error; err != nil {
 		fmt.Println(err)
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": "user not found",
+			"error": err,
 		})
 	}
 
@@ -93,6 +98,7 @@ func Login(ctx *fiber.Ctx) error {
 		ctx.Status(fiber.StatusForbidden)
 		return ctx.JSON(fiber.Map{
 			"message": "incorrect password",
+			"error": err,
 		})
 	}
 	validTimeMinutes := os.Getenv("JWT_VALID_TIME")
@@ -107,6 +113,7 @@ func Login(ctx *fiber.Ctx) error {
 		ctx.Status(fiber.StatusInternalServerError)
 		return ctx.JSON(fiber.Map{
 			"message": "could not login, server error",
+			"error": err,
 		})
 	}
 
@@ -121,6 +128,7 @@ func Login(ctx *fiber.Ctx) error {
 
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "success",
+		"data": user,
 	})
 }
 
@@ -136,6 +144,7 @@ func User(ctx *fiber.Ctx) error {
 		fmt.Println(err)
 		return ctx.JSON(fiber.Map{
 			"message": "unauthenticated",
+			"error": err,
 		})
 	}
 	claims, ok := token.Claims.(jwt.MapClaims)
@@ -145,14 +154,13 @@ func User(ctx *fiber.Ctx) error {
 		})
 	}
 	var user models.User
-	database.DB.Where("username = ?", claims["username"]).First(&user)
-	if user.Id == 0 {
-		ctx.Status(fiber.StatusNotFound)
-		return ctx.JSON(fiber.Map{
+	if err := database.DB.Where("username = ?", claims["username"]).First(&user).Error; err != nil {
+		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": "User Not Authenticated",
+			"error": err,
 		})
 	}
-	return ctx.JSON(user)
+	return ctx.JSON(fiber.Map{"data": user, "message": "success",})
 }
 
 func Logout(ctx *fiber.Ctx) error {

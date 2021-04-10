@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/HuakunShen/golang-auth/database"
-	"github.com/HuakunShen/golang-auth/routes"
+	"github.com/HuakunShen/wol-web/backend/database"
+	"github.com/HuakunShen/wol-web/backend/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"

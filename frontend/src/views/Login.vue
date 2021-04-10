@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 export default Vue.extend({
   data() {
     return {
@@ -47,28 +47,11 @@ export default Vue.extend({
   },
   methods: {
     ...mapMutations(['updateAuth']),
+    ...mapActions(['login']),
     async submit(e) {
       e.preventDefault();
       if (this.username && this.password) {
-        const res = await fetch('/api/users/login', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: this.username,
-            password: this.password,
-          }),
-        });
-        const content = await res.json();
-        if (res.status == 200) {
-          console.log(content);
-          this.updateAuth({ isAuth: true, username: this.username });
-        } else {
-          console.error(content.message);
-        }
-        console.log(content);
+        this.login({ username: this.username, password: this.password });
       } else {
         console.error('error invalid input');
       }

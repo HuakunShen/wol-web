@@ -1,4 +1,6 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
+github.com/HuakunShen/wol v0.0.0-20210313173306-20befec0c6cf h1:Se7IVzv54cdfy9G4ZR6AAHzmexfVOANjI8AdPqoa0Wk=
+github.com/HuakunShen/wol v0.0.0-20210313173306-20befec0c6cf/go.mod h1:PpP164XQ5A++nOi2QirGXbYPpRW5rft3qyPwONof1iI=
 github.com/andybalholm/brotli v1.0.0/go.mod h1:loMXtMfwqflxFJPmdbJO0a3KNoPuLBgiu3qAvBg8x/Y=
 github.com/andybalholm/brotli v1.0.1 h1:KqhlKozYbRtJvsPrrEeXcO+N2l6NYT5A2QAFmSULpEc=
 github.com/andybalholm/brotli v1.0.1/go.mod h1:loMXtMfwqflxFJPmdbJO0a3KNoPuLBgiu3qAvBg8x/Y=
