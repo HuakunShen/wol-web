@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func AddMac(ctx *fiber.Ctx) error {
+func AddComputer(ctx *fiber.Ctx) error {
 	var data map[string]string
 	uid := ctx.Locals("id")
 	if err := ctx.BodyParser(&data); err != nil {
@@ -39,52 +39,52 @@ func AddMac(ctx *fiber.Ctx) error {
 			"error": err,
 		})
 	}
-	mac := models.Mac{
+	computer := models.Computer{
 		UserId: uint(userId),
 		Name: data["name"],
 		Mac:  data["mac"],
 		Ip: data["ip"],
 		Port:  uint32(port),
 	}
-	if err := database.DB.Create(&mac).Error; err != nil {
+	if err := database.DB.Create(&computer).Error; err != nil {
 		fmt.Println(err)
 		return ctx.Status(fiber.StatusConflict).JSON(fiber.Map{
-			"message": "Mac Exists, Try Another One",
+			"message": "Computer Exists, Try Another One",
 			"error": err,
 		})
 	} else {
 		return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
-			"data": mac,
+			"data": computer,
 		})
 	}
 }
 
-func GetMac(ctx *fiber.Ctx) error {
+func GetComputer(ctx *fiber.Ctx) error {
 	id := ctx.Params("id")
 	userId := ctx.Locals("id")
-	var mac models.Mac
-	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).First(&mac).Error; err != nil {
+	var computer models.Computer
+	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).First(&computer).Error; err != nil {
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"message": "Mac Not Found or you don't have permission",
+			"message": "Computer Not Found or you don't have permission",
 			"error": fmt.Sprintf("%v", err),
 		})
 	}
-	return ctx.JSON(fiber.Map{"data": mac})
+	return ctx.JSON(fiber.Map{"data": computer})
 }
 
-func GetMacs(ctx *fiber.Ctx) error {
+func GetComputers(ctx *fiber.Ctx) error {
 	userId := ctx.Locals("id")
-	var macs []models.Mac
-	if err := database.DB.Where("user_id = ?", userId).Find(&macs).Error; err != nil {
+	var computers []models.Computer
+	if err := database.DB.Where("user_id = ?", userId).Find(&computers).Error; err != nil {
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": "Fail to Get Data",
 			"error": err,
 		})
 	}
-	return ctx.Status(fiber.StatusFound).JSON(fiber.Map{"data": macs})
+	return ctx.Status(fiber.StatusFound).JSON(fiber.Map{"data": computers})
 }
 
-func DeleteMac(ctx *fiber.Ctx) error {
+func DeleteComputer(ctx *fiber.Ctx) error {
 	id, err := strconv.ParseUint(ctx.Params("id"), 10, 32)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -93,17 +93,17 @@ func DeleteMac(ctx *fiber.Ctx) error {
 		})
 	}
 	userId := ctx.Locals("id")
-	var mac models.Mac
+	var computer models.Computer
 
 	// verify exist
-	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).First(&mac).Error; err != nil {
+	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).First(&computer).Error; err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "Data to delete may not exist",
 			"error": fmt.Sprintf("%v", err),
 		})
 	}
 	// delete
-	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).Delete(&mac).Error; err != nil {
+	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).Delete(&computer).Error; err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "Fail to delete, record doesn't exists or you don't have permission",
 			"error": err,
@@ -112,6 +112,6 @@ func DeleteMac(ctx *fiber.Ctx) error {
 
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "success",
-		"data": mac,
+		"data": computer,
 	})
 }

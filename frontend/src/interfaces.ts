@@ -10,7 +10,7 @@ export interface State {
     isAuth: boolean;
     username: string | null;
   };
-  macs: Array<MacInterface>;
+  computers: Array<MacInterface>;
   errors: Array<string> | null;
   messages: Array<string> | null;
 }

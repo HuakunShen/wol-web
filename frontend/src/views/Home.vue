@@ -58,7 +58,7 @@
           Add
         </button>
       </form>
-      <MacList :macs="this.$store.getters.allMacs" />
+      <ComputerList :computers="this.$store.getters.allComputers" />
     </div>
   </div>
 </template>
@@ -66,9 +66,9 @@
 <script lang="ts">
 import { Vue } from 'vue-property-decorator';
 import { mapActions } from 'vuex';
-import MacList from '../components/MacList.vue';
+import ComputerList from '../components/ComputerList.vue';
 export default Vue.extend({
-  components: { MacList: MacList },
+  components: { ComputerList: ComputerList },
   data() {
     return {
       name: '',
@@ -78,10 +78,10 @@ export default Vue.extend({
     };
   },
   methods: {
-    ...mapActions(['addMac']),
+    ...mapActions(['addComputer']),
     submit(e) {
       e.preventDefault();
-      this.addMac({
+      this.addComputer({
         name: this.name,
         mac: this.mac,
         ip: this.ip,

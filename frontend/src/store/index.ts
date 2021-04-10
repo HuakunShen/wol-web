@@ -9,12 +9,12 @@ export default new Vuex.Store<State>({
       isAuth: false,
       username: '',
     },
-    macs: [],
+    computers: [],
     errors: [],
     messages: [],
   },
   getters: {
-    allMacs: (state) => state.macs,
+    allComputers: (state) => state.computers,
     test: (state) => 'test',
   },
   mutations: {
@@ -22,8 +22,8 @@ export default new Vuex.Store<State>({
       state.auth.username = payload.username;
       state.auth.isAuth = payload.isAuth;
     },
-    updateMacs(state, payload: { macs: Array<MacInterface> }) {
-      state.macs = payload.macs;
+    updateComputers(state, payload: { computers: Array<MacInterface> }) {
+      state.computers = payload.computers;
     },
   },
   actions: {
@@ -57,8 +57,8 @@ export default new Vuex.Store<State>({
         commit('updateAuth', { isAuth: false, username: null });
       }
     },
-    async loadMacs({ commit }) {
-      const res = await fetch('/api/mac', {
+    async loadComputers({ commit }) {
+      const res = await fetch('/api/computers', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -67,9 +67,11 @@ export default new Vuex.Store<State>({
       });
       const content = await res.json();
       if (res.status < 400) {
-        commit('updateMacs', { macs: content.data });
+        console.log(res);
+        console.log(res.status);
+        commit('updateComputers', { computers: content.data });
       } else {
-        commit('updateMacs', { macs: [] });
+        commit('updateComputers', { computers: [] });
       }
     },
     async login({ commit }, payload) {
@@ -116,13 +118,13 @@ export default new Vuex.Store<State>({
         console.error(content.message);
       }
     },
-    async addMac(
+    async addComputer(
       { dispatch },
       payload: { name: string; mac: string; ip: string; port: string }
     ) {
       const { name, mac, ip, port } = payload;
       if (name && mac) {
-        const res = await fetch('/api/mac', {
+        const res = await fetch('/api/computers', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -133,7 +135,7 @@ export default new Vuex.Store<State>({
         const content = await res.json();
         if (res.status < 400) {
           console.log(content);
-          dispatch('loadMacs');
+          dispatch('loadComputers');
         } else {
           console.error(content.message);
         }
@@ -141,10 +143,10 @@ export default new Vuex.Store<State>({
         console.error('Invalid Input');
       }
     },
-    async deleteMac({ dispatch }, payload: { id: number }) {
+    async deleteComputer({ dispatch }, payload: { id: number }) {
       console.log(payload);
       if (payload.id) {
-        const res = await fetch(`/api/mac/${payload.id}`, {
+        const res = await fetch(`/api/computers/${payload.id}`, {
           method: 'DELETE',
           headers: {
             Accept: 'application/json',
@@ -152,7 +154,7 @@ export default new Vuex.Store<State>({
           },
         });
         if (res.status < 400) {
-          dispatch('loadMacs');
+          dispatch('loadComputers');
         } else {
           console.error('Fail to delete');
           console.error(res);

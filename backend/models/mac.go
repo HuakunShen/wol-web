@@ -1,6 +1,6 @@
 package models
 
-type Mac struct {
+type Computer struct {
 	Id     uint `json:"id" gorm:"primaryKey;autoIncrement:true"`
 	UserId uint `json:"user_id" gorm:"foreignKey:CompanyRefer"`
 	Name   string `json:"name" gorm:"not null"`

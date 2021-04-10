@@ -13,9 +13,9 @@ func Setup(app *fiber.App) {
 	app.Post("/api/users/login", controllers.Login)
 	app.Get("/api/users/user", middleware.IsAuthenticated(), controllers.User)
 	app.Post("/api/users/logout", controllers.Logout)
-	app.Get("/api/mac", middleware.IsAuthenticated(), controllers.GetMacs)
-	app.Get("/api/mac/:id", middleware.IsAuthenticated(), controllers.GetMac)
-	app.Post("/api/mac", middleware.IsAuthenticated(), controllers.AddMac)
-	app.Delete("/api/mac/:id", middleware.IsAuthenticated(), controllers.DeleteMac)
+	app.Get("/api/computers", middleware.IsAuthenticated(), controllers.GetComputers)
+	app.Get("/api/computers/:id", middleware.IsAuthenticated(), controllers.GetComputer)
+	app.Post("/api/computers", middleware.IsAuthenticated(), controllers.AddComputer)
+	app.Delete("/api/computers/:id", middleware.IsAuthenticated(), controllers.DeleteComputer)
 	app.Post("/api/wol/:id", middleware.IsAuthenticated(), controllers.Wol)
 }

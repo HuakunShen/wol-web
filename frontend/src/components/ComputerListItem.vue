@@ -1,20 +1,28 @@
 <template>
-  <li class="mac-list-item list-group-item mt-2 d-flex justify-content-between">
+  <li
+    class="computer-list-item list-group-item mt-2 d-flex justify-content-between"
+  >
     <div>
-      <p><strong>Name:</strong> {{ mac.name }}</p>
-      <p><strong>Mac Address:</strong> {{ mac.mac }}</p>
+      <p><strong>Name:</strong> {{ computer.name }}</p>
+      <p><strong>Mac Address:</strong> {{ computer.mac }}</p>
     </div>
     <div>
-      <p><strong>IP:</strong> {{ mac.ip }}</p>
-      <p><strong>Port:</strong> {{ mac.port }}</p>
+      <p><strong>IP:</strong> {{ computer.ip }}</p>
+      <p><strong>Port:</strong> {{ computer.port }}</p>
     </div>
 
     <div>
       <span data-bs-toggle="tooltip" data-bs-placement="left" title="Wake Up">
-        <i class="far fa-arrow-alt-circle-up" v-on:click="wake(mac.id)"></i>
+        <i
+          class="far fa-arrow-alt-circle-up"
+          v-on:click="wake(computer.id)"
+        ></i>
       </span>
       <span data-bs-toggle="tooltip" data-bs-placement="left" title="Delete">
-        <i class="fas fa-trash-alt" v-on:click="deleteMac({ id: mac.id })"></i>
+        <i
+          class="fas fa-trash-alt"
+          v-on:click="deleteComputer({ id: computer.id })"
+        ></i>
       </span>
     </div>
   </li>
@@ -24,10 +32,10 @@
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 export default Vue.extend({
-  name: 'Mac-List-Item',
-  props: ['mac'],
+  name: 'Computer-List-Item',
+  props: ['computer'],
   methods: {
-    ...mapActions(['deleteMac']),
+    ...mapActions(['deleteComputer']),
     async wake(id: number) {
       const res = await fetch(`/api/wol/${id}`, {
         method: 'POST',
@@ -38,7 +46,7 @@ export default Vue.extend({
       });
 
       if (res.status < 400) {
-        console.log(res);
+        console.log('success');
       } else {
         console.error('Fail to delete');
         console.error(res);
@@ -49,10 +57,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.mac-list-item {
+.computer-list-item {
   border-radius: 8px;
   padding: 10px 2rem;
-  background-color: #fffaf2;
+  background-color: #fffaf7;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -69,7 +77,7 @@ export default Vue.extend({
     font-size: 1.5rem;
   }
 }
-.mac-list-item::before {
+.computer-list-item::before {
   content: '';
   height: 100%;
   width: 10px;

@@ -12,15 +12,27 @@ import Navbar from './components/Navbar.vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 export default Vue.extend({
+  data() {
+    return { interval: null };
+  },
   created() {
     this.loadAuth();
-    this.loadMacs();
+    this.loadComputers();
+    this.interval = setInterval(() => {
+      this.loadComputers();
+      console.log('load macs');
+    }, 1000 * 60);
+  },
+  destroyed() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   },
   components: {
     Navbar: Navbar,
   },
   methods: {
-    ...mapActions(['loadAuth', 'loadMacs']),
+    ...mapActions(['loadAuth', 'loadComputers']),
     logout() {
       console.log('logout');
       this.$store.dispatch('logout');

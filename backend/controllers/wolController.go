@@ -12,7 +12,7 @@ import (
 func Wol(ctx *fiber.Ctx) error {
 	id := ctx.Params("id")
 	userId := ctx.Locals("id")
-	var mac models.Mac
+	var mac models.Computer
 	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).First(&mac).Error; err != nil {
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": "Mac Not Found or you don't have permission",
