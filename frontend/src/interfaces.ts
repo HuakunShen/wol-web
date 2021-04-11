@@ -4,13 +4,16 @@ export interface MacInterface {
   name: string;
   mac: string;
 }
-
+export type Message = {
+  message: string;
+  variant: string;
+};
 export interface State {
   auth: {
     isAuth: boolean;
     username: string | null;
   };
   computers: Array<MacInterface>;
-  errors: Array<string> | null;
-  messages: Array<string> | null;
+  errors: Array<Message>;
+  messages: Array<Message>;
 }

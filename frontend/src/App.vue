@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
+    <MessageList />
     <router-view />
   </div>
 </template>
@@ -9,6 +10,7 @@
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 import Navbar from './components/Navbar.vue';
+import MessageList from './components/MessageList.vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
@@ -21,7 +23,6 @@ export default Vue.extend({
     this.loadComputers();
     this.interval = setInterval(() => {
       this.loadComputers();
-      console.log('load macs');
     }, 1000 * 60);
   },
   destroyed() {
@@ -31,9 +32,10 @@ export default Vue.extend({
   },
   components: {
     Navbar: Navbar,
+    MessageList: MessageList,
   },
   methods: {
-    ...mapActions(['loadAuth', 'loadComputers']),
+    ...mapActions(['loadAuth', 'loadComputers', 'popMessage']),
     logout(): void {
       console.log('logout');
       this.$store.dispatch('logout');

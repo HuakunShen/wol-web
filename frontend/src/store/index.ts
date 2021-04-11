@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { MacInterface, State } from '../interfaces';
+import { MacInterface, Message, State } from '../interfaces';
 Vue.use(Vuex);
 
 export default new Vuex.Store<State>({
@@ -15,7 +15,6 @@ export default new Vuex.Store<State>({
   },
   getters: {
     allComputers: (state) => state.computers,
-    test: (state) => 'test',
     isAuth: (state) => state.auth.isAuth,
   },
   mutations: {
@@ -25,6 +24,9 @@ export default new Vuex.Store<State>({
     },
     updateComputers(state, payload: { computers: Array<MacInterface> }) {
       state.computers = payload.computers;
+    },
+    updateMessages(state, payload: { messages: Array<Message> }) {
+      state.messages = payload.messages;
     },
   },
   actions: {
@@ -163,6 +165,15 @@ export default new Vuex.Store<State>({
           console.error(res);
         }
       }
+    },
+    pushMessage({ commit }, payload: { message: string; variant: string }) {
+      const messages = [payload, ...this.state.messages];
+      commit('updateMessages', { messages });
+    },
+    popMessage({ commit }) {
+      const messages = this.state.messages;
+      messages.pop();
+      commit('updateMessages', { messages });
     },
   },
   modules: {},
