@@ -23,6 +23,8 @@ postgres:latest
 
 ## Environment Variables `.env`
 
+Sample `.env`
+
 ```
 PORT=9090
 JWT_SECRET=secret
@@ -32,7 +34,7 @@ POSTGRES_HOST=localhost
 
 POSTGRES_PORT=5432
 POSTGRES_USER=wol
-POSTGRES_PASSWORD=wakeonlan
+POSTGRES_PASSWORD=password
 POSTGRES_DB=wol
 POSTGRES_TIMESZONE=America/Toronto
 
