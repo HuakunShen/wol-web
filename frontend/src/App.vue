@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
-    <MessageList />
+    <!-- <MessageList /> -->
     <router-view />
   </div>
 </template>
@@ -32,12 +32,11 @@ export default Vue.extend({
   },
   components: {
     Navbar: Navbar,
-    MessageList: MessageList,
+    // MessageList: MessageList,
   },
   methods: {
     ...mapActions(['loadAuth', 'loadComputers', 'popMessage']),
     logout(): void {
-      console.log('logout');
       this.$store.dispatch('logout');
     },
   },

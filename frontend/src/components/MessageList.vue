@@ -1,7 +1,7 @@
 <template>
   <div class="message-list">
-    <div v-for="(msg, index) in messages" :key="index">
-      <MessageListItem :msg="msg" />
+    <div v-for="(message, index) in messages" :key="index">
+      <MessageListItem :message="message" />
     </div>
   </div>
 </template>
@@ -9,7 +9,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import MessageListItem from './MessageListItem.vue';
-export default Vue.extend({
+export default new Vue({
   computed: {
     messages: function () {
       return this.$store.state.messages;

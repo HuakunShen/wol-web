@@ -1,18 +1,15 @@
 <template>
-  <div class="alert" v-bind:class="[classType]" role="alert">
-    {{ msg.message }}
+  <div class="alert alert-danger" role="alert">
+    {{ message.message }}
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { Message } from '../interfaces';
 export default Vue.extend({
-  props: ['msg'],
-  computed: {
-    classType: function () {
-      return this.msg.variant;
-    },
-  },
+  props: ['message'],
+  computed: {},
 });
 </script>
 

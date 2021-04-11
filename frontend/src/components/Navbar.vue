@@ -51,7 +51,6 @@ export default Vue.extend({
     ...mapGetters(['isAuth']),
     ...mapActions(['loadAuth']),
     logout() {
-      console.log('logout');
       this.$store.dispatch('logout');
     },
   },
