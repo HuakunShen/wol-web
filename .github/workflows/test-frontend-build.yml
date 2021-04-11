@@ -2,12 +2,8 @@ name: Test Vue Frontend Build with docker-compose
 on:
   push:
     branches: [master]
-    paths:
-      - 'frontend/**'
   pull_request:
     branches: [master]
-    paths:
-      - 'frontend/**'
 jobs:
   test:
     runs-on: ubuntu-latest
