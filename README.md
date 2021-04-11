@@ -18,7 +18,7 @@ Use VPN to go into your network and wake up your computers with a simple click i
 
 The app can be hosted with docker which requires the machine to have `docker` and `docker-compose` installed.
 
-If you want to run it without docker (with native golang), see later sections: # TODO
+If you want to run it without docker (with native golang), see later sections: [Deploy Without Docker](#deploy-without-docker)
 
 Modify the image tag within `docker-compose.yml` depend on what machine you are running.
 
@@ -106,7 +106,7 @@ For more information and configuration related to backend, check [backend README
 
 Build the frontend app with either native vue or docker-compose, make sure `dist` is in frontend directory.
 
-See [Start Database](https://github.com/HuakunShen/wol-web/tree/master/backend#set-up-postgresql-database-with-docker) for how to start a database.
+See [Start Database](./backend#set-up-postgresql-database-with-docker) for how to start a database.
 
 ### Start Server
 
