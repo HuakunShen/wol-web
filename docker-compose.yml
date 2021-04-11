@@ -15,13 +15,13 @@ services:
     image: golang:1.16.3-alpine3.13
     restart: always
     volumes:
-      - ./entrypoint.sh:/entrypoint.sh
+      - .:/wol-web
+      - ./helpers/start-backend.sh:/entrypoint.sh
       - ./backend:/wol_backend
       - ./frontend/dist:/frontend/dist
-    entrypoint: sh /entrypoint.sh
+    entrypoint: sh /wol-web/helpers/start-backend.sh
     depends_on:
       - db
     network_mode: 'host'
-
 volumes:
   wol-web-db:

@@ -1,0 +1,7 @@
+version: '3.9'
+services:
+  build-frontend:
+    image: node:latest
+    volumes:
+      - .:/wol-web
+    entrypoint: sh /wol-web/helpers/build-frontend.sh
