@@ -18,11 +18,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <router-link class="nav-link active" to="/login">Login</router-link>
-            <router-link class="nav-link active" to="/signup"
+            <router-link
+              class="nav-link active"
+              v-if="!this.isAuth()"
+              to="/login"
+              >Login</router-link
+            >
+            <router-link
+              class="nav-link active"
+              v-if="!this.isAuth()"
+              to="/signup"
               >Signup
             </router-link>
-            <li class="nav-item">
+            <li class="nav-item" v-if="this.isAuth()">
               <a class="nav-link" href="#" v-on:click="logout">Logout</a>
             </li>
           </div>
@@ -34,12 +42,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default Vue.extend({
   created() {
     this.loadAuth();
   },
   methods: {
+    ...mapGetters(['isAuth']),
     ...mapActions(['loadAuth']),
     logout() {
       console.log('logout');

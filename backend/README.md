@@ -19,18 +19,31 @@ docker run --name wol-db \
 -v $PWD/pgdata:/var/lib/postgresql/data \
 -d -p 5432:5432 \
 postgres:latest
-
-
 ```
 
+## Environment Variables `.env`
+
 ```
-PORT=...
-DB_USERNAME=...
-DB_PASSWORD=...
-DB_DATABASE=...
-JWS_SECRET=...
-JWT_VALID_TIME=...
+PORT=9090
+JWS_SECRET=secret
+JWT_VALID_TIME=14400
+
+POSTGRES_HOST=localhost
+
+POSTGRES_PORT=5432
+POSTGRES_USER=wol
+POSTGRES_PASSWORD=wakeonlan
+POSTGRES_DB=wol
+POSTGRES_TIMESZONE=America/Toronto
+
+ENABLE_SIGNUP=false
 ```
+
+The **PORT** can be modified to any port but **POSTGRES_PORT** cannot be changed for now.
+
+Use `ENABLE_SIGNUP=true` to to disable signup, default is `true`.
+
+Use `JWT_VALID_TIME` to set valid login time. The unit is **minute**.
 
 ### MySQL Schema
 

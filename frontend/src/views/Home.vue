@@ -65,8 +65,9 @@
 
 <script lang="ts">
 import { Vue } from 'vue-property-decorator';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import ComputerList from '../components/ComputerList.vue';
+
 export default Vue.extend({
   components: { ComputerList: ComputerList },
   data() {
@@ -77,7 +78,18 @@ export default Vue.extend({
       port: '9',
     };
   },
+  watch: {
+    '$store.state.auth': {
+      deep: true,
+      handler: function (newValue, oldValue) {
+        if (newValue.isAuth === false) {
+          this.$router.push({ path: '/login' });
+        }
+      },
+    },
+  },
   methods: {
+    ...mapGetters(['isAuth']),
     ...mapActions(['addComputer']),
     submit(e: Event) {
       e.preventDefault();

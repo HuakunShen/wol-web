@@ -56,8 +56,15 @@ export default Vue.extend({
       passwordRepeat: '',
     };
   },
-  created() {
-    console.log(this.$store.state);
+  watch: {
+    '$store.state.auth': {
+      deep: true,
+      handler: function (newValue, oldValue) {
+        if (newValue.isAuth === true) {
+          this.$router.push({ path: '/' });
+        }
+      },
+    },
   },
   methods: {
     ...mapMutations(['updateAuth']),

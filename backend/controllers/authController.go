@@ -14,6 +14,20 @@ import (
 )
 
 func Register(ctx *fiber.Ctx) error {
+	if os.Getenv("ENABLE_SIGNUP") == "true" {
+		// keep going the rest of the signup logic
+	} else if os.Getenv("ENABLE_SIGNUP") == "false" {
+		return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
+			"message": "Signup function disabled for this app",
+			"error": "Signup function disabled for this app",
+		})
+	} else {
+		return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
+			"message": "invalid environment variable ENABLE_SIGNUP, signup disabled",
+			"error": "invalid environment variable ENABLE_SIGNUP, signup disabled",
+		})
+	}
+
 	var data map[string]string
 
 	if err := ctx.BodyParser(&data); err != nil {

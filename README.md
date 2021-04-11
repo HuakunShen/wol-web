@@ -93,3 +93,7 @@ The following 2 make commands are exactly the same as the 2 docker-compose comma
 make deploy-test
 make deploy
 ```
+
+## Backend
+
+For more information and configuration related to backend, check [backend README](./backend/README.md)

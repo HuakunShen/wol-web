@@ -35,6 +35,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapMutations, mapActions } from 'vuex';
+
 export default Vue.extend({
   data() {
     return {
@@ -42,8 +43,15 @@ export default Vue.extend({
       password: '',
     };
   },
-  created() {
-    console.log(this.$store.state);
+  watch: {
+    '$store.state.auth': {
+      deep: true,
+      handler: function (newValue, oldValue) {
+        if (newValue.isAuth === true) {
+          this.$router.push({ path: '/' });
+        }
+      },
+    },
   },
   methods: {
     ...mapMutations(['updateAuth']),

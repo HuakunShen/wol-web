@@ -6,3 +6,6 @@ deploy-test:
 
 deploy:
 	docker-compose up -d
+
+clean:
+	docker volume rm wol-web_wol-web-db

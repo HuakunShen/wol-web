@@ -6,8 +6,12 @@ services:
     restart: always
     env_file:
       - ./backend/.env
+    environment:
+      - WOL_WEB_USERNAME=huakunshen
+      - WOL_WEB_PASSWORD=pwdpwd
     volumes:
       - ./backend/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+      - ./backend/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
       - wol-web-db:/var/lib/postgresql/data
     network_mode: 'host'
   backend:

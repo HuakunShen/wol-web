@@ -16,6 +16,7 @@ export default new Vuex.Store<State>({
   getters: {
     allComputers: (state) => state.computers,
     test: (state) => 'test',
+    isAuth: (state) => state.auth.isAuth,
   },
   mutations: {
     updateAuth(state, payload: { isAuth: boolean; username: string }) {
