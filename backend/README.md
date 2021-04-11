@@ -25,7 +25,7 @@ postgres:latest
 
 ```
 PORT=9090
-JWS_SECRET=secret
+JWT_SECRET=secret
 JWT_VALID_TIME=14400
 
 POSTGRES_HOST=localhost
