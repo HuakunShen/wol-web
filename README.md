@@ -101,3 +101,19 @@ make deploy
 ## Backend
 
 For more information and configuration related to backend, check [backend README](./backend/README.md)
+
+## Deploy Without Docker
+
+Build the frontend app with either native vue or docker-compose, make sure `dist` is in frontend directory.
+
+See [Start Database](https://github.com/HuakunShen/wol-web/tree/master/backend#set-up-postgresql-database-with-docker) for how to start a database.
+
+### Start Server
+
+```bash
+cd backend
+go build -o server .
+./server
+```
+
+
