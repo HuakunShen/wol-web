@@ -1,0 +1,15 @@
+name: Test Vue Frontend Build with docker-compose
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  test-vue-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build frontend
+        run: make build-frontend
+      # - name: Test
+      #   run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
