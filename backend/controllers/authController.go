@@ -14,24 +14,32 @@ import (
 )
 
 func Register(ctx *fiber.Ctx) error {
-	if os.Getenv("ENABLE_SIGNUP") == "true" {
-		// keep going the rest of the signup logic
-	} else if os.Getenv("ENABLE_SIGNUP") == "false" {
-		return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
-			"message": "Signup function disabled for this app",
-			"error": "Signup function disabled for this app",
-		})
-	} else {
-		return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
-			"message": "invalid environment variable ENABLE_SIGNUP, signup disabled",
-			"error": "invalid environment variable ENABLE_SIGNUP, signup disabled",
-		})
-	}
-
 	var data map[string]string
 
 	if err := ctx.BodyParser(&data); err != nil {
 		return err
+	}
+	// check if one user exists, if exists disallow sign up
+	var count int64
+	if err := database.DB.Model(&models.User{}).Count(&count).Error; err != nil {
+		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Internal Server Error, DB Error",
+			"error": err,
+		})
+	}
+	
+	num_user_allowed, err := strconv.Atoi(os.Getenv("NUM_USER_ALLOWED"))
+	if err != nil {
+		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Fail to parse NUM_USER_ALLOWED env variable",
+			"error": err,
+		})
+	}
+
+	if count >= int64(num_user_allowed) {
+		return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
+			"message": fmt.Sprintf("Not allowed to add more than %d users", num_user_allowed),
+		})
 	}
 
 	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
@@ -47,12 +55,14 @@ func Register(ctx *fiber.Ctx) error {
 		Username: data["username"],
 		Password: password,
 	}
+
 	if err := database.DB.Create(&user).Error; err != nil {
 		return ctx.Status(fiber.StatusConflict).JSON(fiber.Map{
 			"message": "Username Exists, Try Another One",
 			"error": err,
 		})
 	}
+
 	return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "success",
 		"data": user,

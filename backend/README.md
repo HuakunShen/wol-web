@@ -36,12 +36,12 @@ POSTGRES_PASSWORD=wakeonlan
 POSTGRES_DB=wol
 POSTGRES_TIMESZONE=America/Toronto
 
-ENABLE_SIGNUP=false
+NUM_USER_ALLOWED=1
 ```
 
 The **PORT** can be modified to any port but **POSTGRES_PORT** cannot be changed for now.
 
-Use `ENABLE_SIGNUP=true` to to disable signup, default is `true`.
+Use `NUM_USER_ALLOWED=x` to allow x users to signup, default is `1`. If you would like to allow more users to sign up modify this environment variable.
 
 Use `JWT_VALID_TIME` to set valid login time. The unit is **minute**.
 
