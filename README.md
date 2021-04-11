@@ -73,12 +73,23 @@ docker-compose -f docker-compose-helpers.yml run build-frontend
 ### Build with Makefile (recommended)
 
 ```bash
-make build-frontend
+make build-frontend     # exactly the same as the docker-compose method, just a simplified wrapper
 ```
 
 ## Deploy App
 
+### docker-compose
+
 ```bash
 docker-compose up       # see debug messages if doesn't run
 docker-compose up -d    # run in detach mode to show no messages
+```
+
+### Makefile version
+
+The following 2 make commands are exactly the same as the 2 docker-compose commands above
+
+```bash
+make deploy-test
+make deploy
 ```
