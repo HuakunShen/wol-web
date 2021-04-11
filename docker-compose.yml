@@ -12,19 +12,16 @@ services:
     network_mode: 'host'
   backend:
     container_name: wol-server
-    build:
-      context: .
-      dockerfile: backend.Dockerfile
+    image: golang:1.16.3-alpine3.13
     restart: always
+    volumes:
+      - .:/wol-web
+      - ./helpers/start-backend.sh:/entrypoint.sh
+      - ./backend:/wol_backend
+      - ./frontend/dist:/frontend/dist
+    entrypoint: sh /wol-web/helpers/start-backend.sh
     depends_on:
       - db
     network_mode: 'host'
-
-  # frontend:
-  #   container_name: wol-frontend
-# networks:
-#   wol:
-#     driver: bridge
-
 volumes:
   wol-web-db:
