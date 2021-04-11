@@ -6,29 +6,25 @@ services:
     restart: always
     env_file:
       - ./backend/.env
-    ports:
-      - '5432:5432'
     volumes:
       - ./backend/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
-      - ./postgres_data:/var/lib/postgresql/data
-    networks:
-      - wol
-
+      - wol-web-db:/var/lib/postgresql/data
+    network_mode: 'host'
   backend:
     container_name: wol-server
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
     restart: always
-    ports:
-      - '9090:9090'
     depends_on:
       - db
-    networks:
-      - wol
+    network_mode: 'host'
+
   # frontend:
   #   container_name: wol-frontend
+# networks:
+#   wol:
+#     driver: bridge
 
-  #   networks:
-  #     - wol
-networks:
-  wol:
-    driver: bridge
+volumes:
+  wol-web-db:
