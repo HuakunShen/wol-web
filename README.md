@@ -6,7 +6,7 @@ A web app hosted locally for **wakeonlan**, turn on computers in private network
 
 Use VPN to go into your network and wake up your computers with a simple click in your browser.
 
-**Frontend:** Vuejs
+**Frontend:** Vue.js + TypeScript
 
 **Backend:** golang + fiber
 
