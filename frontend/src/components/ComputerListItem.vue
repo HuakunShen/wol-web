@@ -44,7 +44,7 @@ export default Vue.extend({
           'Content-Type': 'application/json',
         },
       });
-
+      const content = await res.json();
       if (res.status < 400) {
         this.pushMessage({
           message: 'Magic Packet Sent',
@@ -53,7 +53,7 @@ export default Vue.extend({
       } else {
         console.error('Fail to delete');
         console.error(res);
-        this.pushMessage({ message: res.message, variant: 'alert-danger' });
+        this.pushMessage({ message: content.message, variant: 'alert-danger' });
       }
     },
   },
