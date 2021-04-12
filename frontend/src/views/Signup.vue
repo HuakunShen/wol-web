@@ -3,6 +3,10 @@
     <div class="container">
       <div class="signup-card">
         <h1>Sign Up</h1>
+        <p>
+          <strong>User Quota:</strong> {{ user_count }} /
+          {{ num_user_allowed }}
+        </p>
         <form @submit="submit">
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
@@ -37,6 +41,7 @@
               required
             />
           </div>
+
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
@@ -54,7 +59,27 @@ export default Vue.extend({
       username: '',
       password: '',
       passwordRepeat: '',
+      num_user_allowed: 0,
+      user_count: 0,
     };
+  },
+  async created() {
+    const res = await fetch('/api/users/count', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    const content = await res.json();
+
+    if (res.status < 400) {
+      const { num_user_allowed, user_count } = content.data;
+      this.num_user_allowed = num_user_allowed;
+      this.user_count = user_count;
+    } else {
+      console.error(content);
+      this.pushMessage({ message: content.message, variant: 'alert-danger' });
+    }
   },
   watch: {
     '$store.state.auth': {
@@ -68,7 +93,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapMutations(['updateAuth']),
-    ...mapActions(['signup']),
+    ...mapActions(['signup', 'pushMessage']),
     async submit(e: Event) {
       e.preventDefault();
       if (
@@ -76,7 +101,8 @@ export default Vue.extend({
         this.password &&
         this.password === this.passwordRepeat
       ) {
-        this.signup({ username: this.username, password: this.password });
+        await this.signup({ username: this.username, password: this.password });
+        this.$router.push({ path: '/login' });
       } else {
         console.error('invalid input');
       }

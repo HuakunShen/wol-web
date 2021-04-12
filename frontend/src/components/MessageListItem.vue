@@ -1,6 +1,6 @@
 <template>
-  <div class="alert alert-danger" role="alert">
-    {{ message.message }}
+  <div class="alert" v-bind:class="variant" role="alert">
+    {{ message }}
   </div>
 </template>
 
@@ -8,8 +8,7 @@
 import Vue from 'vue';
 import { Message } from '../interfaces';
 export default Vue.extend({
-  props: ['message'],
-  computed: {},
+  props: { message: String, variant: String, id: String },
 });
 </script>
 

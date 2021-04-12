@@ -1,7 +1,11 @@
 <template>
   <div class="message-list">
     <div v-for="(message, index) in messages" :key="index">
-      <MessageListItem :message="message" />
+      <MessageListItem
+        :message="message.message"
+        :variant="message.variant"
+        :id="message.id"
+      />
     </div>
   </div>
 </template>
@@ -9,12 +13,9 @@
 <script lang="ts">
 import Vue from 'vue';
 import MessageListItem from './MessageListItem.vue';
-export default new Vue({
-  computed: {
-    messages: function () {
-      return this.$store.state.messages;
-    },
-  },
+import { Message } from '../interfaces';
+export default Vue.extend({
+  props: ['messages'],
   components: {
     MessageListItem: MessageListItem,
   },
@@ -24,7 +25,8 @@ export default new Vue({
 <style lang="scss" scoped>
 .message-list {
   position: absolute;
-  right: 2rem;
-  top: 2rem;
+  left: 2rem;
+  bottom: 1rem;
+  z-index: 1;
 }
 </style>

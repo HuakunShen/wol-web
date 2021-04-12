@@ -11,7 +11,7 @@
       <p><strong>Port:</strong> {{ computer.port }}</p>
     </div>
 
-    <div>
+    <div class="d-flex">
       <span data-bs-toggle="tooltip" data-bs-placement="left" title="Wake Up">
         <i
           class="far fa-arrow-alt-circle-up"
@@ -35,7 +35,7 @@ export default Vue.extend({
   name: 'Computer-List-Item',
   props: ['computer'],
   methods: {
-    ...mapActions(['deleteComputer']),
+    ...mapActions(['deleteComputer', 'pushMessage']),
     async wake(id: number) {
       const res = await fetch(`/api/wol/${id}`, {
         method: 'POST',
@@ -46,10 +46,14 @@ export default Vue.extend({
       });
 
       if (res.status < 400) {
-        console.log('success');
+        this.pushMessage({
+          message: 'Magic Packet Sent',
+          variant: 'alert-success',
+        });
       } else {
         console.error('Fail to delete');
         console.error(res);
+        this.pushMessage({ message: res.message, variant: 'alert-danger' });
       }
     },
   },
@@ -66,14 +70,21 @@ export default Vue.extend({
   justify-content: space-between;
   .fas.fa-trash-alt {
     cursor: pointer;
-    transform: translateY(5px);
+    transform: translateY(0.2rem);
     color: red;
-    padding-left: 1rem;
-    font-size: 1.3rem;
+    margin: 0 0.3rem;
+    font-size: 1.5rem;
+  }
+  .fas.fa-trash-alt:hover {
+    color: rgb(246, 18, 189);
+  }
+  .far.fa-arrow-alt-circle-up:hover {
+    color: green;
   }
   .far.fa-arrow-alt-circle-up {
     cursor: pointer;
-    transform: translateY(5px);
+    transform: translateY(0.2rem);
+    margin: 0 0.3rem;
     font-size: 1.5rem;
   }
 }

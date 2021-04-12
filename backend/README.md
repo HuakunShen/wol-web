@@ -92,7 +92,6 @@ create table if not exists users
 alter table users
     owner to postgres;
 
-
 create table computers
 (
     id      serial                                                    not null
@@ -105,9 +104,13 @@ create table computers
     name    varchar(255)                                              not null,
     mac     varchar(17)                                               not null,
     ip      varchar(100) default '255.255.255.255'::character varying not null,
-    port    integer      default 9                                    not null
+    port    integer      default 9                                    not null,
+    constraint computers_pk_2
+        unique (user_id, name)
 );
 
 alter table computers
-    owner to postgres;
+    owner to wol;
+
+
 ```

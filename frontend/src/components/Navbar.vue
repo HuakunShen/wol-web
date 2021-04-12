@@ -4,7 +4,10 @@
       <router-link to="/about">About</router-link> -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <router-link class="nav-link active" to="/">WOL</router-link>
+        <router-link id="brand" class="nav-link active" to="/"
+          ><i class="fas fa-network-wired"></i>
+          <strong>WOL</strong></router-link
+        >
         <button
           class="navbar-toggler"
           type="button"
@@ -56,3 +59,18 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+#nav {
+  z-index: 5;
+}
+nav {
+  z-index: 5;
+}
+#brand {
+  color: #ddd;
+}
+#brand:hover {
+  color: #fff;
+}
+</style>

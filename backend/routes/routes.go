@@ -13,6 +13,7 @@ func Setup(app *fiber.App) {
 	app.Post("/api/users/login", controllers.Login)
 	app.Get("/api/users/user", middleware.IsAuthenticated(), controllers.User)
 	app.Post("/api/users/logout", controllers.Logout)
+	app.Get("/api/users/count", controllers.UserCount)
 	app.Get("/api/computers", middleware.IsAuthenticated(), controllers.GetComputers)
 	app.Get("/api/computers/:id", middleware.IsAuthenticated(), controllers.GetComputer)
 	app.Post("/api/computers", middleware.IsAuthenticated(), controllers.AddComputer)

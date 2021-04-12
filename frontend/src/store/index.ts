@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { v4 as uuidv4 } from 'uuid';
 import { MacInterface, Message, State } from '../interfaces';
 Vue.use(Vuex);
 
@@ -97,12 +98,20 @@ export default new Vuex.Store<State>({
         if (res.status < 400) {
           console.log(content);
           commit('updateAuth', { isAuth: true, username: username });
+          dispatch('pushMessage', {
+            message: 'Login Successfully',
+            variant: 'alert-success',
+          });
         } else {
           console.error(content.message);
+          dispatch('pushMessage', {
+            message: content.message,
+            variant: 'alert-danger',
+          });
         }
       }
     },
-    async signup({ commit }, payload) {
+    async signup({ commit, dispatch }, payload) {
       const { username, password } = payload;
       const res = await fetch('/api/users/register', {
         method: 'POST',
@@ -118,9 +127,16 @@ export default new Vuex.Store<State>({
       const content = await res.json();
       if (res.status < 400) {
         console.log(content);
-        commit('updateAuth', { isAuth: true, username: username });
+        dispatch('pushMessage', {
+          message: 'Sign Up Successfully',
+          variant: 'alert-success',
+        });
       } else {
         console.error(content.message);
+        dispatch('pushMessage', {
+          message: content.message,
+          variant: 'alert-danger',
+        });
       }
     },
     async addComputer(
@@ -139,10 +155,18 @@ export default new Vuex.Store<State>({
         });
         const content = await res.json();
         if (res.status < 400) {
-          console.log(content);
+          dispatch('pushMessage', {
+            message: 'New Computer Added',
+            variant: 'alert-success',
+          });
           dispatch('loadComputers');
         } else {
           console.error(content.message);
+          console.error(content.error);
+          dispatch('pushMessage', {
+            message: content.message,
+            variant: 'alert-danger',
+          });
         }
       } else {
         console.error('Invalid Input');
@@ -166,13 +190,27 @@ export default new Vuex.Store<State>({
         }
       }
     },
-    pushMessage({ commit }, payload: { message: string; variant: string }) {
-      const messages = [payload, ...this.state.messages];
+    pushMessage(
+      { commit, dispatch },
+      payload: { message: string; variant: string }
+    ) {
+      const msgId = uuidv4();
+      const newPayload = { id: msgId, ...payload };
+      const messages = [newPayload, ...this.state.messages];
       commit('updateMessages', { messages });
+      setTimeout(() => {
+        dispatch('removeMessageById', { idToRemove: msgId });
+      }, 3000);
     },
     popMessage({ commit }) {
       const messages = this.state.messages;
       messages.pop();
+      commit('updateMessages', { messages });
+    },
+    removeMessageById({ commit }, payload: { idToRemove: string }) {
+      const messages = this.state.messages.filter(
+        (msg) => msg.id != payload.idToRemove
+      );
       commit('updateMessages', { messages });
     },
   },

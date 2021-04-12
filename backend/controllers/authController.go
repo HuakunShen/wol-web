@@ -69,6 +69,30 @@ func Register(ctx *fiber.Ctx) error {
 	})
 }
 
+func UserCount(ctx *fiber.Ctx) error {
+	num_user_allowed, err := strconv.Atoi(os.Getenv("NUM_USER_ALLOWED"))
+	if err != nil {
+		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Fail to parse NUM_USER_ALLOWED env variable",
+			"error": err,
+		})
+	}
+	var count int64
+	if err := database.DB.Model(&models.User{}).Count(&count).Error; err != nil {
+		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Internal Server Error, DB Error",
+			"error": err,
+		})
+	}
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "success",
+		"data": fiber.Map{
+			"num_user_allowed": num_user_allowed,
+			"user_count": count,
+		},
+	})
+}
+
 func CreateToken(id uint, username string, validMinutes uint) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	// Set claims
@@ -104,7 +128,7 @@ func Login(ctx *fiber.Ctx) error {
 
 	if err := ctx.BodyParser(&data); err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": "fail to parse",
+			"message": "Fail to Parse Request Body",
 			"error": err,
 		})
 	}
@@ -113,7 +137,7 @@ func Login(ctx *fiber.Ctx) error {
 	if err := database.DB.Where("username = ?", data["username"]).First(&user).Error; err != nil {
 		fmt.Println(err)
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"message": "user not found",
+			"message": "User Not Found",
 			"error": err,
 		})
 	}
@@ -121,7 +145,7 @@ func Login(ctx *fiber.Ctx) error {
 	if err := bcrypt.CompareHashAndPassword(user.Password, []byte(data["password"])); err != nil {
 		ctx.Status(fiber.StatusForbidden)
 		return ctx.JSON(fiber.Map{
-			"message": "incorrect password",
+			"message": "Incorrect Password",
 			"error": err,
 		})
 	}
@@ -136,7 +160,7 @@ func Login(ctx *fiber.Ctx) error {
 	if err != nil {
 		ctx.Status(fiber.StatusInternalServerError)
 		return ctx.JSON(fiber.Map{
-			"message": "could not login, server error",
+			"message": "Could not Login, Server Error related to JWT",
 			"error": err,
 		})
 	}

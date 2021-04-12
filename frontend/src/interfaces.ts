@@ -5,6 +5,7 @@ export interface MacInterface {
   mac: String;
 }
 export type Message = {
+  id: String;
   message: String;
   variant: String;
 };
