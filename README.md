@@ -20,7 +20,7 @@ The app can be hosted with docker which requires the machine to have `docker` an
 
 If you want to run it without docker (with native golang), see later sections: [Deploy Without Docker](#deploy-without-docker)
 
-Modify the image tag within `docker-compose.yml` depend on what machine you are running.
+Modify the image tags within `docker-compose.yml` and `docker-compose-helpers.yml` depend on what machine you are running.
 
 ### x64
 
@@ -82,12 +82,14 @@ make build-frontend     # exactly the same as the docker-compose method, just a 
 
 ## Deploy App
 
-### docker-compose
+### docker-compose (Recommended)
 
 ```bash
 docker-compose up       # see debug messages if doesn't run
 docker-compose up -d    # run in detach mode to show no messages
 ```
+
+Run the app without `-d` first to confirm that it's running properly (see error messages if any) then run with `-d`.
 
 ### Makefile version
 
@@ -102,6 +104,13 @@ make deploy
 
 For more information and configuration related to backend, check [backend README](./backend/README.md)
 
+You can configure
+- database user, password
+- port of the server
+- number of users allowed to sign up
+- Timezone of Database
+- JWT Secret and Login Time (JWT_VALID_TIME)
+
 ## Deploy Without Docker
 
 Build the frontend app with either native vue or docker-compose, make sure `dist` is in frontend directory.
@@ -115,5 +124,3 @@ cd backend
 go build -o server .
 ./server
 ```
-
-
