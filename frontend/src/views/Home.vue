@@ -57,6 +57,14 @@
         <button type="submit" class="btn btn-primary btn-block mt-1">
           Add
         </button>
+        <div
+          v-if="lastMsg()"
+          class="mt-3 alert"
+          v-bind:class="lastMsg().variant"
+          role="alert"
+        >
+          {{ lastMsg().message }}
+        </div>
       </form>
       <ComputerList :computers="this.$store.getters.allComputers" />
     </div>
@@ -67,7 +75,6 @@
 import { Vue } from 'vue-property-decorator';
 import { mapActions, mapGetters } from 'vuex';
 import ComputerList from '../components/ComputerList.vue';
-
 export default Vue.extend({
   components: { ComputerList: ComputerList },
   data() {
@@ -89,7 +96,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    ...mapGetters(['isAuth']),
+    ...mapGetters(['isAuth', 'lastMsg']),
     ...mapActions(['addComputer']),
     submit(e: Event) {
       e.preventDefault();

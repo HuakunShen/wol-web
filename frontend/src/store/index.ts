@@ -17,6 +17,8 @@ export default new Vuex.Store<State>({
   getters: {
     allComputers: (state) => state.computers,
     isAuth: (state) => state.auth.isAuth,
+    lastMsg: (state) =>
+      state.messages && state.messages.length !== 0 ? state.messages[0] : null,
   },
   mutations: {
     updateAuth(state, payload: { isAuth: boolean; username: string }) {
@@ -111,7 +113,7 @@ export default new Vuex.Store<State>({
         }
       }
     },
-    async signup({ commit, dispatch }, payload) {
+    async signup({ commit, dispatch }, payload): Promise<boolean> {
       const { username, password } = payload;
       const res = await fetch('/api/users/register', {
         method: 'POST',
@@ -131,12 +133,14 @@ export default new Vuex.Store<State>({
           message: 'Sign Up Successfully',
           variant: 'alert-success',
         });
+        return true;
       } else {
         console.error(content.message);
         dispatch('pushMessage', {
           message: content.message,
           variant: 'alert-danger',
         });
+        return false;
       }
     },
     async addComputer(

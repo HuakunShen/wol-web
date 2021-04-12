@@ -26,6 +26,14 @@
             />
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
+          <div
+            v-if="lastMsg()"
+            class="mt-3 alert"
+            v-bind:class="lastMsg().variant"
+            role="alert"
+          >
+            {{ lastMsg().message }}
+          </div>
         </form>
       </div>
     </div>
@@ -34,7 +42,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapMutations, mapActions } from 'vuex';
+import { mapMutations, mapActions, mapGetters } from 'vuex';
 
 export default Vue.extend({
   data() {
@@ -54,6 +62,7 @@ export default Vue.extend({
     },
   },
   methods: {
+    ...mapGetters(['isAuth', 'lastMsg']),
     ...mapMutations(['updateAuth']),
     ...mapActions(['login']),
     async submit(e: Event) {

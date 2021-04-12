@@ -43,6 +43,14 @@
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>
+          <div
+            v-if="lastMsg()"
+            class="mt-3 alert"
+            v-bind:class="lastMsg().variant"
+            role="alert"
+          >
+            {{ lastMsg().message }}
+          </div>
         </form>
       </div>
     </div>
@@ -51,7 +59,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapMutations, mapActions } from 'vuex';
+import { mapMutations, mapActions, mapGetters } from 'vuex';
 
 export default Vue.extend({
   data() {
@@ -92,6 +100,7 @@ export default Vue.extend({
     },
   },
   methods: {
+    ...mapGetters(['isAuth', 'lastMsg']),
     ...mapMutations(['updateAuth']),
     ...mapActions(['signup', 'pushMessage']),
     async submit(e: Event) {
@@ -101,8 +110,11 @@ export default Vue.extend({
         this.password &&
         this.password === this.passwordRepeat
       ) {
-        await this.signup({ username: this.username, password: this.password });
-        this.$router.push({ path: '/login' });
+        const success = await this.signup({
+          username: this.username,
+          password: this.password,
+        });
+        if (success) this.$router.push({ path: '/login' });
       } else {
         console.error('invalid input');
       }
