@@ -10,11 +10,15 @@ Use VPN to go into your network and wake up your computers with a simple click i
 
 **Backend:** golang + fiber
 
+## UI
+
+![image-20210411083628619](README.assets/image-20210411083628619.png)
+
 ## Docker Environment
 
 The app can be hosted with docker which requires the machine to have `docker` and `docker-compose` installed.
 
-If you want to run it without docker (with native golang), see later sections: # TODO
+If you want to run it without docker (with native golang), see later sections: [Deploy Without Docker](#deploy-without-docker)
 
 Modify the image tag within `docker-compose.yml` depend on what machine you are running.
 
@@ -97,3 +101,19 @@ make deploy
 ## Backend
 
 For more information and configuration related to backend, check [backend README](./backend/README.md)
+
+## Deploy Without Docker
+
+Build the frontend app with either native vue or docker-compose, make sure `dist` is in frontend directory.
+
+See [Start Database](./backend#set-up-postgresql-database-with-docker) for how to start a database.
+
+### Start Server
+
+```bash
+cd backend
+go build -o server .
+./server
+```
+
+
