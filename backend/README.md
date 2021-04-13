@@ -12,6 +12,7 @@ mysql -u root -p
 
 ## Set Up PostgreSQL Database with docker
 
+```bash
 docker run --name wol-db \
 -e POSTGRES_PASSWORD=wakeonlan \
 -e POSTGRES_USER=wol \
@@ -21,6 +22,7 @@ docker run --name wol-db \
 --restart unless-stopped \
 --network host \
 postgres:13.2-alpine
+```
 
 ## Environment Variables `.env`
 
@@ -93,7 +95,7 @@ create table if not exists users
 );
 
 alter table users
-    owner to postgres;
+    owner to wol;
 
 create table computers
 (

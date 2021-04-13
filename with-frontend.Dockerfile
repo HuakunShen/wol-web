@@ -20,8 +20,9 @@ ENV POSTGRES_PORT 5432
 ENV POSTGRES_TIMESZONE America/Toronto
 ENV NUM_USER_ALLOWED 1
 
-COPY --from=server-builder /go/src/ /wol-server/
-ADD /frontend/dist/ /frontend/dist/
+COPY --from=server-builder /go/src/server /wol-server/server
+COPY --from=server-builder /go/src/.env /wol-server/.env
+COPY /frontend/dist/ /frontend/dist/
 COPY ./backend/docker_postgres_init.sql /docker-entrypoint-initdb.d/docker_postgres_init.sql
 EXPOSE 9090
 CMD ["./server"]

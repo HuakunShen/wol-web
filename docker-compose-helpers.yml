@@ -5,3 +5,9 @@ services:
     volumes:
       - .:/wol-web
     entrypoint: sh /wol-web/helpers/build-frontend.sh
+  dev-backend:
+    image: golang:1.16.3-alpine3.13
+    volumes:
+      - ./backend:/backend
+    entrypoint: sh /backend/docker_start_dev_server.sh
+    network_mode: 'host'

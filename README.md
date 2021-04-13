@@ -22,6 +22,8 @@ Use VPN to go into your network and wake up your computers with a simple click i
 
 ## To Develop
 
+### Frontend
+
 ```bash
 npm i -g @vue/cli
 cd frontend
@@ -29,12 +31,40 @@ npm install
 npm run serve
 ```
 
+### Database
+
+```bash
+docker run --name wol-db \
+-e POSTGRES_PASSWORD=wakeonlan \
+-e POSTGRES_USER=wol \
+-e POSTGRES_DB=wol \
+-e PGDATA=/var/lib/postgresql/data/pgdata \
+-v wol-web-db:/var/lib/postgresql/data \
+--rm -p 5432:5432 postgres:13.2-alpine
+```
+
+or
+
+```bash
+docker-compose run db
+```
+
+or a actual local postgres database
+
+### Backend
+
 ```bash
 cd backend
 go get -u github.com/cosmtrek/air
-# add to path
-export PATH=/home/huakun/go/bin:$PATH   # on linux, similar on mac
-air     # start live reload
+# add go/bin to path
+export PATH=/home/username/go/bin:$PATH   # on linux, similar on mac
+air                                     # start live reload
+```
+
+#### Run backend with docker-compose
+
+```bash
+docker-compose -f docker-compose-helpers.yml run dev-backend
 ```
 
 See [backend](./backend/README.md) and [Environment Variables](#environment-variables) for more configuration options.
