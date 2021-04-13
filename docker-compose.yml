@@ -1,15 +1,15 @@
-version: "3.9"
+version: '3.9'
 services:
   db:
     container_name: wol-postgres-db
-    image: postgres:13.2
+    image: postgres:13.2-alpine
     restart: unless-stopped
     env_file:
       - ./backend/.env
     volumes:
       - ./backend/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
       - wol-web-db:/var/lib/postgresql/data
-    network_mode: "host"
+    network_mode: 'host'
   backend:
     container_name: wol-server
     image: golang:1.16.3-alpine3.13
@@ -22,6 +22,6 @@ services:
     entrypoint: sh /wol-web/helpers/start-backend.sh
     depends_on:
       - db
-    network_mode: "host"
+    network_mode: 'host'
 volumes:
   wol-web-db:

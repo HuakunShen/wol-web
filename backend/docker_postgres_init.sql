@@ -25,4 +25,3 @@ create table computers
     constraint computers_pk_2
         unique (user_id, name)
 );
-
