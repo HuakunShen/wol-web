@@ -1,5 +1,11 @@
 # wol-web
 
+To deploy check:
+
+- [Deploy App](#deploy-app)
+- or
+- [Deploy With Docker Image](#deploy-with-docker-image-Recommended)
+
 ## Use Cases
 
 A web app hosted locally for **wakeonlan**, turn on computers in private network.
@@ -100,16 +106,27 @@ make deploy-test
 make deploy
 ```
 
-## Backend
+## Deploy with Docker Image (Recommended)
 
-For more information and configuration related to backend, check [backend README](./backend/README.md)
+Docker Image contains both compiled frontend and server code, which you don't need to compile by your self.
 
-You can configure
-- database user, password
-- port of the server
-- number of users allowed to sign up
-- Timezone of Database
-- JWT Secret and Login Time (JWT_VALID_TIME)
+```bash
+docker pull huakunshen/wol:latest
+```
+
+You still need to start a postgres Database
+
+```bash
+docker-compose run db
+```
+
+or [Start Database](./backend/README.md#set-up-postgresql-database-with-docker) to run a database.
+
+To start the backend:
+
+```bash
+docker run --restart=always --network host huakunshen/wol:latest -d
+```
 
 ## Deploy Without Docker
 
@@ -124,3 +141,15 @@ cd backend
 go build -o server .
 ./server
 ```
+
+## Backend
+
+For more information and configuration related to backend, check [backend README](./backend/README.md)
+
+You can configure
+
+- database user, password
+- port of the server
+- number of users allowed to sign up
+- Timezone of Database
+- JWT Secret and Login Time (JWT_VALID_TIME)
