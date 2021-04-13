@@ -12,14 +12,15 @@ mysql -u root -p
 
 ## Set Up PostgreSQL Database with docker
 
-```bash
 docker run --name wol-db \
--e POSTGRES_PASSWORD=password \
+-e POSTGRES_PASSWORD=wakeonlan \
+-e POSTGRES_USER=wol \
+-e POSTGRES_DB=wol \
 -e PGDATA=/var/lib/postgresql/data/pgdata \
--v $PWD/pgdata:/var/lib/postgresql/data \
--d -p 5432:5432 \
-postgres:latest
-```
+-v wol-web-db:/var/lib/postgresql/data \
+--restart unless-stopped \
+--network host \
+postgres:13.2-alpine
 
 ## Environment Variables `.env`
 

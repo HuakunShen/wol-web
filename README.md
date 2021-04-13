@@ -1,9 +1,9 @@
 # wol-web
 
-To deploy check:
+Deployment Instructions:
 
+- [Deployment Instructions](./deploy.md)
 - [Deploy App](#deploy-app)
-- or
 - [Deploy With Docker Image](#deploy-with-docker-image-Recommended)
 
 ## Use Cases
@@ -19,6 +19,25 @@ Use VPN to go into your network and wake up your computers with a simple click i
 ## UI
 
 ![image-20210411083628619](README.assets/image-20210411083628619.png)
+
+## To Develop
+
+```bash
+npm i -g @vue/cli
+cd frontend
+npm install
+npm run serve
+```
+
+```bash
+cd backend
+go get -u github.com/cosmtrek/air
+# add to path
+export PATH=/home/huakun/go/bin:$PATH   # on linux, similar on mac
+air     # start live reload
+```
+
+See [backend](./backend/README.md) and [Environment Variables](#environment-variables) for more configuration options.
 
 ## Docker Environment
 
@@ -58,7 +77,7 @@ Modify the image tags within `docker-compose.yml` and `docker-compose-helpers.ym
 - arm32v7
 - arm64v8
 
-## Build Frontend
+## Build Frontend Manully
 
 The frontend is written in vuejs and needs to be built manually to generate a `dist` folder which contains the `index.html` and other resources.
 
@@ -86,7 +105,21 @@ docker-compose -f docker-compose-helpers.yml run build-frontend
 make build-frontend     # exactly the same as the docker-compose method, just a simplified wrapper
 ```
 
+## Backend
+
+For more information and configuration related to backend, check [backend README](./backend/README.md)
+
+You can configure
+
+- database user, password
+- port of the server
+- number of users allowed to sign up
+- Timezone of Database
+- JWT Secret and Login Time (JWT_VALID_TIME)
+
 ## Deploy App
+
+For simple samples: [deploy.md](./deploy.md)
 
 ### docker-compose (Recommended)
 
@@ -108,48 +141,80 @@ make deploy
 
 ## Deploy with Docker Image (Recommended)
 
+Also see: [deploy.md](./deploy.md)
+
 Docker Image contains both compiled frontend and server code, which you don't need to compile by your self.
 
 ```bash
 docker pull huakunshen/wol:latest
+docker pull huakunshen/wol:mac10.15.7
+docker pull huakunshen/wol:raspberrypi4
 ```
 
 You still need to start a postgres Database
 
-```bash
-docker-compose run db
-```
-
-or [Start Database](./backend/README.md#set-up-postgresql-database-with-docker) to run a database.
+Check [deploy.md](./deploy.md) or [Start Database](./backend/README.md#set-up-postgresql-database-with-docker) for how to run a database.
 
 To start the backend:
 
 ```bash
-docker run --restart=always --network host huakunshen/wol:latest -d
+docker run -d --restart=unless-stopped --name wol-server --network host huakunshen/wol:latest
 ```
 
-## Deploy Without Docker
+**While running database and the app, make sure you use the same environment variables**
 
-Build the frontend app with either native vue or docker-compose, make sure `dist` is in frontend directory.
+### Dockerfile
 
-See [Start Database](./backend#set-up-postgresql-database-with-docker) for how to start a database.
+There 2 versions of Dockerfile used to build docker image.
 
-### Start Server
+- [Dockerfile](./Dockerfile)
+  - build both vue frontend and golang server into the image
+- [with-frontend.Dockerfile](./with-frontend.Dockerfile)
+  - skip frontend build, instead, take the `dist` under frontend compiled locally and add to the image.
+  - `dist` is for browser thus compatible on any device. I couldn't always build it on raspberry pi, so the solution was to build on my PC and transfer and raspberry pi, and build the image.
+
+#### Raspberry Pi Image
+
+For Raspberry Pi, you can use the following image, only tested on pi4
 
 ```bash
-cd backend
-go build -o server .
-./server
+docker pull huakunshen/wol:raspberrypi4
 ```
 
-## Backend
+## Environment Variables
 
-For more information and configuration related to backend, check [backend README](./backend/README.md)
+Environment Variables can be add by:
 
-You can configure
+- adding `environment:` to service or
+- adding `-e env_name=env_value` to `docker run`
 
-- database user, password
-- port of the server
-- number of users allowed to sign up
-- Timezone of Database
-- JWT Secret and Login Time (JWT_VALID_TIME)
+### Database
+
+```
+POSTGRES_PASSWORD=wakeonlan
+POSTGRES_USER=wol
+POSTGRES_DB=wol
+PGDATA=/var/lib/postgresql/data/pgdata
+```
+
+### Server
+
+```
+PORT=9090
+JWT_SECRET=secret
+JWT_VALID_TIME=14400
+
+POSTGRES_HOST=localhost
+
+POSTGRES_PORT=5432
+POSTGRES_USER=wol
+POSTGRES_PASSWORD=wakeonlan
+POSTGRES_DB=wol
+POSTGRES_TIMESZONE=America/Toronto
+
+NUM_USER_ALLOWED=1
+```
+
+During development, both Database and Server environment variables can be modifed in `backend/.env`
+
+check [backend](./backend/README.md) too.
