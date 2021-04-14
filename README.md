@@ -18,7 +18,7 @@ Use VPN to go into your network and wake up your computers with a simple click i
 
 ## UI
 
-![image-20210411083628619](README.assets/image-20210411083628619.png)
+![image-20210411083628619](README.assets/wol-web.png)
 
 ## To Develop
 
