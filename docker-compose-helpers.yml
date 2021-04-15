@@ -15,7 +15,13 @@ services:
     image: node:latest
     volumes:
       - ./frontend:/frontend
-    entrypoint: sh -c "cd /frontend && npm run serve"
+    entrypoint: sh -c
+    command:
+      - |
+        cd /frontend
+        rm -rf dist node_modules
+        npm ci
+        npm run serve
     network_mode: 'host'
   build-backend:
     image: golang:1.16.3-alpine3.13
