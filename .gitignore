@@ -16,3 +16,5 @@
 node_modules
 
 backend/server
+frontend/dist.tar.xz
+frontend/dist.zip

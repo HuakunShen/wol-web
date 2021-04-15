@@ -1,5 +1,15 @@
 # Deployment Instructions
 
+The repo itself contains only source code, the compiled code can be downloaded from the latest release https://github.com/HuakunShen/wol-web/releases
+
+In the following deployment methods, if the method doesn't use a docker image (which already contains compiled code), then you have to either compile the fronend on the fly or download `dist` and put into `frontend`.
+
+## Compile Frontend
+
+```
+docker-compose -f docker-compose-helpers.yml run build-frontend
+```
+
 ## Raspberry Pi
 
 ### Option 1: docker-compose
