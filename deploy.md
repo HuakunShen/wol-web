@@ -1,13 +1,27 @@
 # Deployment Instructions
 
+## Simpliest Method
+
+```bash
+make deploy
+```
+
 The repo itself contains only source code, the compiled code can be downloaded from the latest release https://github.com/HuakunShen/wol-web/releases
 
 In the following deployment methods, if the method doesn't use a docker image (which already contains compiled code), then you have to either compile the fronend on the fly or download `dist` and put into `frontend`.
 
 ## Compile Frontend
 
-```
+```bash
 docker-compose -f docker-compose-helpers.yml run build-frontend
+```
+
+## Compile Backend
+
+Compiled binary will be saved into `backend`
+
+```bash
+docker-compose -f docker-compose-helpers.yml run build-backend
 ```
 
 ## Raspberry Pi
@@ -63,7 +77,7 @@ docker run --name wol-server \
 huakunshen/wol:latest
 ```
 
-### Option 4: Manual Setup
+### Option 4: Run Without Docker
 
 1. Install nodejs and golang
 2. Start a postgres database
@@ -80,6 +94,7 @@ huakunshen/wol:latest
     -d \
     postgres:13.2-alpine
    ```
+   or install a postgres database with the username and password
 3. Build frontend
    ```bash
    npm i -g @vue/cli
@@ -87,9 +102,17 @@ huakunshen/wol:latest
    npm install
    npm run build
    ```
+   or build with docker-compose
+   ```bash
+   docker-compose -f docker-compose-helpers.yml run build-frontend
+   ```
 4. Build backend server
    ```bash
    cd backend
    go build -o server .
    ./server
+   ```
+   or build with docker-compose
+   ```bash
+   docker-compose -f docker-compose-helpers.yml run build-backend
    ```

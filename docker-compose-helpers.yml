@@ -4,10 +4,31 @@ services:
     image: node:latest
     volumes:
       - .:/wol-web
-    entrypoint: sh /wol-web/helpers/build-frontend.sh
+    entrypoint: sh -c
+    command:
+      - |
+        cd /wol-web/frontend
+        rm -rf dist node_modules
+        npm ci
+        npm run build
+  dev-frontend:
+    image: node:latest
+    volumes:
+      - ./frontend:/frontend
+    entrypoint: sh -c "cd /frontend && npm run serve"
+    network_mode: 'host'
+  build-backend:
+    image: golang:1.16.3-alpine3.13
+    volumes:
+      - ./backend:/backend
+    entrypoint: sh -c
+    command:
+      - |
+        cd /backend
+        go build -o server .
   dev-backend:
     image: golang:1.16.3-alpine3.13
     volumes:
       - ./backend:/backend
-    entrypoint: sh /backend/docker_start_dev_server.sh
+    entrypoint: sh -c "go get -u github.com/cosmtrek/air && export PATH=/usr/local/go/bin:/go/bin:$PATH && cd /backend && go build -o server . && air"
     network_mode: 'host'

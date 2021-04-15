@@ -19,7 +19,12 @@ services:
       - ./helpers/start-backend.sh:/entrypoint.sh
       - ./backend:/wol_backend
       - ./frontend/dist:/frontend/dist
-    entrypoint: sh /wol-web/helpers/start-backend.sh
+    entrypoint: sh -c
+    command:
+      - |
+        cd /wol-web/backend
+        go build -o server .
+        /wol-web/backend/server
     depends_on:
       - db
     network_mode: 'host'
