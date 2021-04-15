@@ -2,12 +2,8 @@ name: Test If Compile
 on:
   push:
     branches: [master]
-    paths:
-      - 'frontend/**'
   pull_request:
     branches: [master]
-    paths:
-      - 'frontend/**'
 jobs:
   test-vue-build:
     runs-on: ubuntu-latest
