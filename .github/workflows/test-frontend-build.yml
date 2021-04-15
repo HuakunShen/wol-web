@@ -1,7 +1,7 @@
 name: Test If Compile
 on:
   push:
-    branches: [github-action]
+    branches: [master]
     paths:
       - 'frontend/**'
   pull_request:
