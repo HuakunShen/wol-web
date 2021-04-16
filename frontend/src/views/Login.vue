@@ -51,8 +51,11 @@ export default Vue.extend({
       password: '',
     };
   },
+  created() {
+    this.loadAuth();
+  },
   watch: {
-    '$store.state.auth': {
+    '$store.state.auth.isAuth': {
       deep: true,
       handler: function (newValue, oldValue) {
         if (newValue.isAuth === true) {
@@ -64,7 +67,7 @@ export default Vue.extend({
   methods: {
     ...mapGetters(['isAuth', 'lastMsg']),
     ...mapMutations(['updateAuth']),
-    ...mapActions(['login']),
+    ...mapActions(['login', 'loadAuth']),
     async submit(e: Event) {
       e.preventDefault();
       if (this.username && this.password) {

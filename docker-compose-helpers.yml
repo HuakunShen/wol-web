@@ -35,6 +35,6 @@ services:
   dev-backend:
     image: golang:1.16.3-alpine3.13
     volumes:
-      - ./backend:/backend
-    entrypoint: sh -c "go get -u github.com/cosmtrek/air && export PATH=/usr/local/go/bin:/go/bin:$PATH && cd /backend && go build -o server . && air"
+      - .:/wol
+    entrypoint: sh -c "go get -u github.com/cosmtrek/air && export PATH=/usr/local/go/bin:/go/bin:$PATH && cd /wol/backend && air"
     network_mode: 'host'
