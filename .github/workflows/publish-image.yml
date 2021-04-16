@@ -1,8 +1,8 @@
 name: Publish Docker Image
 
 on:
-  push:
-    branches: [master]
+  release:
+    types: [created]
 
 jobs:
   publish-linuxamd64-image:
@@ -22,3 +22,4 @@ jobs:
       - name: Docker Push
         run: |
           docker push ${{secrets.DOCKER_USER}}/wol:linux-amd64-latest
+          docker push ${{secrets.DOCKER_USER}}/wol:linux-amd64-${{ github.event.release.tag_name }}
