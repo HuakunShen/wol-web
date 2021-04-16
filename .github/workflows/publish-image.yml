@@ -14,11 +14,11 @@ jobs:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker login -u $DOCKER_USER -p ${{secrets.DOCKER_PASSWORD}}
       - name: Build the Docker Image
         run: |
           docker build . -f Dockerfile -t ${{secrets.DOCKER_USER}}/wol:linux-amd64-${{ github.event.release.tag_name }}
           docker tag ${{secrets.DOCKER_USER}}/wol:linux-amd64-${{ github.event.release.tag_name }} ${{secrets.DOCKER_USER}}/wol:linux-amd64-latest
       - name: Docker Push
         run: |
-          docker push ${{secrets.DOCKER_USER}}/wol
+          docker push ${{secrets.DOCKER_USER}}/wol:linux-amd64-latest
