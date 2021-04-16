@@ -21,7 +21,13 @@ docker run --name wol-db \
 -v wol-web-db:/var/lib/postgresql/data \
 --restart unless-stopped \
 --network host \
-postgres:13.2-alpine
+arm32v7/postgres:13.2-alpine
+```
+
+### Raspberry Pi
+```bash
+docker run --name wol-db -e POSTGRES_PASSWORD=wakeonlan -e POSTGRES_USER=wol -e POSTGRES_DB=wol -e PGDATA=/var/lib/postgresql/data/pgdata -v wol-web-db:/var/lib/postgresql/data -v $PWD/backend/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql --network host --restart unless-stopped -d arm32v7/postgr
+es
 ```
 
 ## Environment Variables `.env`
