@@ -55,24 +55,20 @@ make deploy
 ### Option 3: Docker image
 
 ```bash
-docker volume create wol-web-db
-
+# run this within wol-web repo
 docker run --name wol-db \
--e POSTGRES_PASSWORD=wakeonlan \
--e POSTGRES_USER=wol \
--e POSTGRES_DB=wol \
--e PGDATA=/var/lib/postgresql/data/pgdata \
--v wol-web-db:/var/lib/postgresql/data \
---restart unless-stopped \
---network host \
+--env-file $PWD/backend/.env \
+-v $PWD/wol-web-db:/var/lib/postgresql/data \
+-v $PWD/backend/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql \
+--restart=unless-stopped \
 -d \
+--network host \
 postgres:13.2-alpine
 
 docker run --name wol-server \
 --restart=unless-stopped \
 --network host \
--e POSTGRES_PASSWORD=wakeonlan \
--e JWT_SECRET=wol-jwt \
+--env-file $PWD/backend/.env \
 -d \
 huakunshen/wol:latest
 ```
