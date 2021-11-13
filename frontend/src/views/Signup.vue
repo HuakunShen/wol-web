@@ -58,35 +58,35 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapMutations, mapActions, mapGetters } from 'vuex';
+import Vue from 'vue'
+import { mapMutations, mapActions, mapGetters } from 'vuex'
 
 export default Vue.extend({
-  data() {
+  data () {
     return {
       username: '',
       password: '',
       passwordRepeat: '',
       num_user_allowed: 0,
-      user_count: 0,
-    };
+      user_count: 0
+    }
   },
-  async created() {
+  async created () {
     const res = await fetch('/api/users/count', {
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-    const content = await res.json();
+        'Content-Type': 'application/json'
+      }
+    })
+    const content = await res.json()
 
     if (res.status < 400) {
-      const { num_user_allowed, user_count } = content.data;
-      this.num_user_allowed = num_user_allowed;
-      this.user_count = user_count;
+      const { num_user_allowed, user_count } = content.data
+      this.num_user_allowed = num_user_allowed
+      this.user_count = user_count
     } else {
-      console.error(content);
-      this.pushMessage({ message: content.message, variant: 'alert-danger' });
+      console.error(content)
+      this.pushMessage({ message: content.message, variant: 'alert-danger' })
     }
   },
   watch: {
@@ -104,7 +104,7 @@ export default Vue.extend({
     ...mapMutations(['updateAuth']),
     ...mapActions(['signup', 'pushMessage']),
     async submit(e: Event) {
-      e.preventDefault();
+      e.preventDefault()
       if (
         this.username &&
         this.password &&
@@ -112,31 +112,31 @@ export default Vue.extend({
       ) {
         const success = await this.signup({
           username: this.username,
-          password: this.password,
+          password: this.password
         });
-        if (success) this.$router.push({ path: '/login' });
+        if (success) this.$router.push({ path: '/login' })
       } else {
-        console.error('invalid input');
+        console.error('invalid input')
       }
-    },
-  },
-});
+    }
+  }
+})
 </script>
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  box-sizing: border-box;
-  .signup-card {
+<style lang="css" scoped>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    box-sizing: border-box;
+  }
+  .container .signup-card {
     background-color: #eee;
     padding: 2rem 2rem 2rem 2rem;
     border-radius: 10px;
     transform: translate(0, 10vh);
-    button {
-      width: 100%;
-    }
   }
-}
+  .container .signup-card button {
+    width: 100%;
+  }
 </style>

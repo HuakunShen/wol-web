@@ -1,18 +1,18 @@
 export interface MacInterface {
-  id: Number;
-  user_id: Number;
-  name: String;
-  mac: String;
+  id: number;
+  user_id: number;
+  name: string;
+  mac: string;
 }
 export type Message = {
-  id: String;
-  message: String;
-  variant: String;
+  id: string;
+  message: string;
+  variant: string;
 };
 export interface State {
   auth: {
-    isAuth: Boolean;
-    username: String | null;
+    isAuth: boolean;
+    username: string | null;
   };
   computers: Array<MacInterface>;
   errors: Array<Message>;

@@ -45,20 +45,21 @@ import Vue from 'vue';
 import { mapMutations, mapActions, mapGetters } from 'vuex';
 
 export default Vue.extend({
-  data() {
+  data () {
     return {
       username: '',
       password: '',
     };
   },
-  created() {
+  created () {
     this.loadAuth();
   },
   watch: {
     '$store.state.auth.isAuth': {
-      deep: true,
+      // deep: true,
       handler: function (newValue, oldValue) {
-        if (newValue.isAuth === true) {
+        console.log(`login new val: ${newValue}`)
+        if (newValue === true) {
           this.$router.push({ path: '/' });
         }
       },
@@ -71,6 +72,8 @@ export default Vue.extend({
     async submit(e: Event) {
       e.preventDefault();
       if (this.username && this.password) {
+        console.log("try login")
+        console.log(`is auth: ${this.isAuth()}`)
         this.login({ username: this.username, password: this.password });
       } else {
         console.error('error invalid input');
@@ -80,21 +83,22 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  box-sizing: border-box;
-  .login-card {
+<style lang="css" scoped>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    box-sizing: border-box;
+  }
+  .container .login-card {
     background-color: #eee;
     padding: 2rem 2rem 2rem 2rem;
     border-radius: 10px;
     transform: translate(0, 10vh);
-    button {
-      width: 100%;
-    }
   }
-}
+  .container .login-card button {
+    width: 100%;
+  }
+  
 </style>

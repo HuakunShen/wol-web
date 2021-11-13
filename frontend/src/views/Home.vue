@@ -89,6 +89,8 @@ export default Vue.extend({
     '$store.state.auth': {
       deep: true,
       handler: function (newValue, oldValue) {
+        console.log("newValue")
+        console.log(newValue)
         if (newValue.isAuth === false) {
           this.$router.push({ path: '/login' });
         }
@@ -111,54 +113,51 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
-#home {
-  .container {
+<style lang="css" scoped>
+  #home .container {
     margin-top: 10px;
-    input {
-      margin-top: 5px;
-      margin-bottom: 5px;
-    }
-    button {
-      width: 100%;
-    }
+  }
+  #home .container input {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  #home .container button {
+    width: 100%;
   }
   @media only screen and (min-width: 1600px) {
-    .container {
+    #home .container {
       padding-left: 15rem;
       padding-right: 15rem;
     }
   }
-
   @media only screen and (max-width: 1600px) {
-    .container {
+    #home .container {
       padding-left: 20%;
       padding-right: 20%;
     }
   }
   @media only screen and (max-width: 1300px) {
-    .container {
+    #home .container {
       padding-left: 15%;
       padding-right: 15%;
     }
   }
   @media only screen and (max-width: 1000px) {
-    .container {
+    #home .container {
       padding-left: 10%;
       padding-right: 10%;
     }
   }
   @media only screen and (max-width: 800px) {
-    .container {
+    #home .container {
       padding-left: 5%;
       padding-right: 5%;
     }
   }
   @media only screen and (max-width: 600px) {
-    .container {
+    #home .container {
       padding-left: 3%;
       padding-right: 3%;
     }
   }
-}
 </style>

@@ -7,43 +7,43 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapActions } from 'vuex';
-import Navbar from './components/Navbar.vue';
-import MessageList from './components/MessageList.vue';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
+import Vue from 'vue'
+import { mapActions } from 'vuex'
+import Navbar from './components/Navbar.vue'
+import MessageList from './components/MessageList.vue'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
 
 export default Vue.extend({
   data() {
-    return { interval: undefined as number | undefined };
+    return { interval: undefined as number | undefined }
   },
   created() {
-    this.loadAuth();
-    this.loadComputers();
+    this.loadAuth()
+    this.loadComputers()
     this.interval = setInterval(() => {
-      this.loadComputers();
-    }, 1000 * 60);
+      this.loadComputers()
+    }, 1000 * 60)
   },
   destroyed() {
     if (this.interval) {
-      clearInterval(this.interval);
+      clearInterval(this.interval)
     }
   },
   components: {
     Navbar: Navbar,
-    MessageList: MessageList,
+    MessageList: MessageList
   },
   methods: {
     ...mapActions(['loadAuth', 'loadComputers', 'popMessage']),
     logout(): void {
-      this.$store.dispatch('logout');
-    },
-  },
-});
+      this.$store.dispatch('logout')
+    }
+  }
+})
 </script>
 
-<style lang="scss">
+<style lang="css">
 #app {
   min-height: 100vh;
   overflow: hidden;

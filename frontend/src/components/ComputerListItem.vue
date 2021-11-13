@@ -60,40 +60,40 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
-.computer-list-item {
-  border-radius: 8px;
-  padding: 10px 2rem;
-  background-color: #fffaf7;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .fas.fa-trash-alt {
+<style lang="css" scoped>
+  .computer-list-item {
+    border-radius: 8px;
+    padding: 10px 2rem;
+    background-color: #fffaf7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .computer-list-item .fas.fa-trash-alt {
     cursor: pointer;
     transform: translateY(0.2rem);
     color: red;
     margin: 0 0.3rem;
     font-size: 1.5rem;
   }
-  .fas.fa-trash-alt:hover {
-    color: rgb(246, 18, 189);
+  .computer-list-item .fas.fa-trash-alt:hover {
+    color: #f612bd;
   }
-  .far.fa-arrow-alt-circle-up:hover {
+  .computer-list-item .far.fa-arrow-alt-circle-up:hover {
     color: green;
   }
-  .far.fa-arrow-alt-circle-up {
+  .computer-list-item .far.fa-arrow-alt-circle-up {
     cursor: pointer;
     transform: translateY(0.2rem);
     margin: 0 0.3rem;
     font-size: 1.5rem;
   }
-}
-.computer-list-item::before {
-  content: '';
-  height: 100%;
-  width: 10px;
-  position: absolute;
-  background-color: rgb(139, 206, 38);
-  left: -0px;
-}
+  .computer-list-item::before {
+    content: '';
+    height: 100%;
+    width: 10px;
+    position: absolute;
+    background-color: #8bce26;
+    left: 0px;
+  }
 </style>

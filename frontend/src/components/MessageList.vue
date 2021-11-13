@@ -22,11 +22,11 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
-.message-list {
-  position: absolute;
-  left: 2rem;
-  bottom: 1rem;
-  z-index: 1;
-}
+<style lang="css" scoped>
+  .message-list {
+    position: absolute;
+    left: 2rem;
+    bottom: 1rem;
+    z-index: 1;
+  }
 </style>

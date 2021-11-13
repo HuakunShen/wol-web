@@ -60,17 +60,17 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
-#nav {
-  z-index: 5;
-}
-nav {
-  z-index: 5;
-}
-#brand {
-  color: #ddd;
-}
-#brand:hover {
-  color: #fff;
-}
+<style lang="css" scoped>
+  #nav {
+    z-index: 5;
+  }
+  nav {
+    z-index: 5;
+  }
+  #brand {
+    color: #ddd;
+  }
+  #brand:hover {
+    color: #fff;
+  }
 </style>
