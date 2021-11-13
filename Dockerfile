@@ -1,5 +1,5 @@
 # Build Frontend
-FROM node:latest AS frontend-builder
+FROM node:16 AS frontend-builder
 WORKDIR /wol/frontend
 COPY frontend .
 RUN npm install -g @vue/cli && \
