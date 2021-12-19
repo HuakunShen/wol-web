@@ -61,6 +61,10 @@ export PATH=/home/username/go/bin:$PATH   # on linux, similar on mac
 air                                     # start live reload
 ```
 
+### API Documentation
+
+https://documenter.getpostman.com/view/UVRAJ7MZ?version=latest
+
 #### Run backend with docker-compose
 
 ```bash
