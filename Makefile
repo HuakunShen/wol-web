@@ -14,8 +14,7 @@ build-backend:
 
 download-frontend:
 	rm -rf ./frontend/dist ./frontend/dist.zip
-	curl -s https://api.github.com/repos/HuakunShen/wol-web/releases/latest | grep "browser_download_url.*dist\.zip" | cut -d '"' -f 4 | wget -i -
-	mv dist.zip frontend
+	curl -s https://api.github.com/repos/HuakunShen/wol-web/releases/latest | grep "browser_download_url.*dist\.zip" | cut -d '"' -f 4 | xargs curl -L -o frontend/dist.zip
 	unzip ./frontend/dist.zip -d ./frontend
 
 dev-backend:
