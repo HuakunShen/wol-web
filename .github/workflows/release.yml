@@ -1,11 +1,10 @@
-name: release
+name: Upload Release Asset
 
 on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
       - 'tmp-v*' # Push events to matching v*, i.e. v1.0, v20.15.10
-name: Upload Release Asset
 
 env:
   REGISTRY: registry.hub.docker.com
