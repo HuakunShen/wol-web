@@ -58,5 +58,5 @@ jobs:
       - name: build and publish
         run: |
           docker buildx build --push --platform linux/arm64/v8,linux/arm/v6,linux/arm/v7,linux/amd64 \
-          -t ${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }} \
-          -t ${{ env.IMAGE_NAME }}:latest .
+          -t ${{ secrets.DOCKER_USER }}/wol:${{ steps.meta.outputs.version }} \
+          -t ${{ secrets.DOCKER_USER }}/wol:latest .
