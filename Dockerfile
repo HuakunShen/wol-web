@@ -10,7 +10,7 @@ RUN apk update && apk add git && git clone https://github.com/HuakunShen/wol.git
 WORKDIR /root/wol
 RUN go build .
 
-# Add compiled frontend and backend to postgres db for deployment
+# Add compiled frontend and backend for deployment
 FROM alpine:3.13.4
 WORKDIR /wol-server
 

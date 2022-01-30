@@ -259,6 +259,6 @@ check [backend](./backend/README.md) too.
 
 ```bash
 docker buildx build --push \
-    --platform linux/arm64,linux/amd64,linux/arm/v7 \
-    -t huakunshen/wol .
+    --platform linux/arm64/v8,linux/arm/v6,linux/arm/v7,linux/amd64 \
+    -t huakunshen/wol:latest .
 ```

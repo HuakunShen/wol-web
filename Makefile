@@ -27,6 +27,11 @@ dev-frontend:
 run-db:
 	docker-compose run db
 
+buildx:
+	docker buildx build --push \
+		--platform linux/arm64/v8,linux/arm/v6,linux/arm/v7,linux/amd64 \
+		-t huakunshen/wol:latest .
+
 clean:
 	docker-compose down
 	docker-compose -f docker-compose-helpers.yml down
