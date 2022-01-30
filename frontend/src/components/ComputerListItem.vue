@@ -1,6 +1,12 @@
 <template>
   <li
-    class="computer-list-item list-group-item mt-2 d-flex justify-content-between"
+    class="
+      computer-list-item
+      list-group-item
+      mt-2
+      d-flex
+      justify-content-between
+    "
   >
     <div>
       <p><strong>Name:</strong> {{ computer.name }}</p>
@@ -35,7 +41,7 @@ export default Vue.extend({
   name: 'Computer-List-Item',
   props: ['computer'],
   methods: {
-    ...mapActions(['deleteComputer', 'pushMessage']),
+    ...mapActions(['deleteComputer', 'pushMessage', 'loadAuth']),
     async wake(id: number) {
       const res = await fetch(`/api/wol/${id}`, {
         method: 'POST',
@@ -54,6 +60,7 @@ export default Vue.extend({
         console.error('Fail to delete');
         console.error(res);
         this.pushMessage({ message: content.message, variant: 'alert-danger' });
+        this.loadAuth();
       }
     },
   },
@@ -61,39 +68,39 @@ export default Vue.extend({
 </script>
 
 <style lang="css" scoped>
-  .computer-list-item {
-    border-radius: 8px;
-    padding: 10px 2rem;
-    background-color: #fffaf7;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .computer-list-item .fas.fa-trash-alt {
-    cursor: pointer;
-    transform: translateY(0.2rem);
-    color: red;
-    margin: 0 0.3rem;
-    font-size: 1.5rem;
-  }
-  .computer-list-item .fas.fa-trash-alt:hover {
-    color: #f612bd;
-  }
-  .computer-list-item .far.fa-arrow-alt-circle-up:hover {
-    color: green;
-  }
-  .computer-list-item .far.fa-arrow-alt-circle-up {
-    cursor: pointer;
-    transform: translateY(0.2rem);
-    margin: 0 0.3rem;
-    font-size: 1.5rem;
-  }
-  .computer-list-item::before {
-    content: '';
-    height: 100%;
-    width: 10px;
-    position: absolute;
-    background-color: #8bce26;
-    left: 0px;
-  }
+.computer-list-item {
+  border-radius: 8px;
+  padding: 10px 2rem;
+  background-color: #fffaf7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.computer-list-item .fas.fa-trash-alt {
+  cursor: pointer;
+  transform: translateY(0.2rem);
+  color: red;
+  margin: 0 0.3rem;
+  font-size: 1.5rem;
+}
+.computer-list-item .fas.fa-trash-alt:hover {
+  color: #f612bd;
+}
+.computer-list-item .far.fa-arrow-alt-circle-up:hover {
+  color: green;
+}
+.computer-list-item .far.fa-arrow-alt-circle-up {
+  cursor: pointer;
+  transform: translateY(0.2rem);
+  margin: 0 0.3rem;
+  font-size: 1.5rem;
+}
+.computer-list-item::before {
+  content: '';
+  height: 100%;
+  width: 10px;
+  position: absolute;
+  background-color: #8bce26;
+  left: 0px;
+}
 </style>
