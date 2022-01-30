@@ -62,8 +62,13 @@ jobs:
           echo "Status:    ${{ steps.buildx.outputs.status }}"
           echo "Flags:     ${{ steps.buildx.outputs.flags }}"
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
-      - name: Available platforms
-        run: echo ${{ steps.buildx.outputs.platforms }}
+      - name: Tags
+        run: |
+          echo ${{ steps.meta.outputs.tags }}
+          echo ${{ env.IMAGE_NAME }}
+
       - name: build and publish
         run: |
-          docker buildx build --push --platform linux/arm64/v8,linux/arm/v6,linux/arm/v7,linux/amd64 -t ${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }} -t ${{ env.IMAGE_NAME }}:latest .
+          docker buildx build --push --platform linux/arm64/v8,linux/arm/v6,linux/arm/v7,linux/amd64 \
+          -t ${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }} \
+          -t ${{ env.IMAGE_NAME }}:latest .
