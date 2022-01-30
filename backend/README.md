@@ -1,34 +1,4 @@
-# golang-auth
-
-## Set Up MySQL Database with docker
-
-```bash
-# start database
-docker run --name dev-mysql -e MYSQL_ROOT_PASSWORD=<password> -d -p 3306:3306 mysql:latest
-# connect to database
-docker exec -it dev-mysql bash
-mysql -u root -p
-```
-
-## Set Up PostgreSQL Database with docker
-
-```bash
-docker run --name wol-db \
--e POSTGRES_PASSWORD=wakeonlan \
--e POSTGRES_USER=wol \
--e POSTGRES_DB=wol \
--e PGDATA=/var/lib/postgresql/data/pgdata \
--v wol-web-db:/var/lib/postgresql/data \
---restart unless-stopped \
---network host \
-arm32v7/postgres:13.2-alpine
-```
-
-### Raspberry Pi
-```bash
-docker run --name wol-db -e POSTGRES_PASSWORD=wakeonlan -e POSTGRES_USER=wol -e POSTGRES_DB=wol -e PGDATA=/var/lib/postgresql/data/pgdata -v wol-web-db:/var/lib/postgresql/data -v $PWD/backend/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql --network host --restart unless-stopped -d arm32v7/postgr
-es
-```
+# wol-web backend
 
 ## Environment Variables `.env`
 
@@ -39,22 +9,16 @@ PORT=9090
 JWT_SECRET=secret
 JWT_VALID_TIME=14400
 
-POSTGRES_HOST=localhost
-
-POSTGRES_PORT=5432
-POSTGRES_USER=wol
-POSTGRES_PASSWORD=password
-POSTGRES_DB=wol
-POSTGRES_TIMESZONE=America/Toronto
-
 NUM_USER_ALLOWED=1
 ```
-
-The **PORT** can be modified to any port but **POSTGRES_PORT** cannot be changed for now.
 
 Use `NUM_USER_ALLOWED=x` to allow x users to signup, default is `1`. If you would like to allow more users to sign up modify this environment variable.
 
 Use `JWT_VALID_TIME` to set valid login time. The unit is **minute**.
+
+## Database
+
+The database used has switched from postgresql to sqlite since the app is simple enough. to be handled by sqlite. The following schemas are a reference to its database design.
 
 ### MySQL Schema
 

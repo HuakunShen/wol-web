@@ -24,7 +24,7 @@ services:
         npm run serve
     network_mode: 'host'
   build-backend:
-    image: golang:1.16.3-alpine3.13
+    image: golang:1.17.6-alpine3.15
     volumes:
       - ./backend:/backend
     entrypoint: sh -c
@@ -34,8 +34,8 @@ services:
         apk add build-base
         go build -o server .
   dev-backend:
-    image: golang:1.16.3-alpine3.13
+    image: golang:1.17.6-alpine3.15
     volumes:
       - .:/wol
-    entrypoint: sh -c "go get -u github.com/cosmtrek/air && export PATH=/usr/local/go/bin:/go/bin:$PATH && cd /wol/backend && air"
+    entrypoint: sh -c "apk add build-base && go get -u github.com/cosmtrek/air && export PATH=/usr/local/go/bin:/go/bin:$PATH && cd /wol/backend && air"
     network_mode: 'host'
