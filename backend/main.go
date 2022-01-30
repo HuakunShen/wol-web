@@ -2,18 +2,21 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
+
 	"github.com/HuakunShen/wol-web/backend/database"
 	"github.com/HuakunShen/wol-web/backend/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
-	"log"
-	"os"
 )
 
 func main() {
 	err := godotenv.Load(".env")
 	port := os.Getenv("PORT")
+	jwt_valid_time := os.Getenv("JWT_VALID_TIME")
+	fmt.Println("jwt_valid_time:", jwt_valid_time, "minutes")
 	fmt.Println("PORT:", port)
 	if err != nil {
 		log.Fatalf("Error loading .env file")
