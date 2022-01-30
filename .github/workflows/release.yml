@@ -65,6 +65,10 @@ jobs:
       - name: Tags
         run: |
           echo ${{ steps.meta.outputs.tags }}
+          echo ${{ steps.meta.outputs.version }}
+          echo ${{ steps.meta.outputs.labels }}
+          echo ${{ steps.meta.outputs.bake-file }}
+          echo ${{ steps.meta.outputs.json }}
           echo ${{ env.IMAGE_NAME }}
 
       - name: build and publish
