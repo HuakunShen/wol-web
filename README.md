@@ -254,3 +254,11 @@ NUM_USER_ALLOWED=1
 During development, both Database and Server environment variables can be modifed in `backend/.env`
 
 check [backend](./backend/README.md) too.
+
+# Docker Build
+
+```bash
+docker buildx build --push \
+    --platform linux/arm64,linux/amd64,linux/arm/v7 \
+    -t huakunshen/wol .
+```
