@@ -15,6 +15,8 @@ import (
 func main() {
 	err := godotenv.Load(".env")
 	port := os.Getenv("PORT")
+	jwt_valid_time := os.Getenv("JWT_VALID_TIME")
+	fmt.Println("jwt_valid_time:", jwt_valid_time, "minutes")
 	fmt.Println("PORT:", port)
 	if err != nil {
 		log.Fatalf("Error loading .env file")

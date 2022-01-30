@@ -14,7 +14,7 @@ func IsAuthenticated() func(*fiber.Ctx) error {
 		tokenString := ctx.Cookies("jwt")
 		claims, err := controllers.ParseCookieJWT(tokenString)
 		if err != nil {
-			return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"message": "unauthorized",
 			})
 		}

@@ -2,6 +2,12 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { v4 as uuidv4 } from 'uuid';
 import { MacInterface, Message, State } from '../interfaces';
+import VuexPersistence from 'vuex-persist';
+
+const vuexLocal = new VuexPersistence<State>({
+  storage: window.localStorage,
+});
+
 Vue.use(Vuex);
 
 export default new Vuex.Store<State>({
@@ -33,53 +39,75 @@ export default new Vuex.Store<State>({
     },
   },
   actions: {
-    async logout({ commit }) {
-      const res = await fetch('/api/users/logout', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-      if (res.status === 200) {
-        commit('updateAuth', { isAuth: false, username: null });
-        commit('updateComputers', { computers: [] });
-      } else {
-        console.error('error: logout');
+    async logout({ commit, dispatch }) {
+      try {
+        const res = await fetch('/api/users/logout', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
+        if (res.status === 200) {
+          commit('updateAuth', { isAuth: false, username: null });
+          commit('updateComputers', { computers: [] });
+        } else {
+          dispatch('loadAuth');
+          console.error('error: logout');
+        }
+      } catch (error) {
+        dispatch('loadAuth');
+        console.error(error);
       }
     },
-    async loadAuth({ commit }) {
-      const res = await fetch('/api/users/user', {
+    loadAuth({ commit }) {
+      return fetch('/api/users/user', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-      });
-      const content = await res.json();
-      console.log(content);
-      if (res.status < 400) {
-        commit('updateAuth', { isAuth: true, username: content.username });
-      } else {
-        commit('updateAuth', { isAuth: false, username: null });
-      }
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('User not loggedin');
+          }
+          return res.json();
+        })
+        .then((content) => {
+          commit('updateAuth', { isAuth: true, username: content.username });
+          return true;
+        })
+        .catch((err) => {
+          commit('updateAuth', { isAuth: false, username: null });
+          console.error(err);
+          return false;
+        });
     },
-    async loadComputers({ commit }) {
-      const res = await fetch('/api/computers', {
+    async loadComputers({ commit, dispatch }) {
+      fetch('/api/computers', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-      });
-      const content = await res.json();
-      if (res.status < 400) {
-        console.log(res);
-        console.log(res.status);
-        commit('updateComputers', { computers: content.data });
-      } else {
-        commit('updateComputers', { computers: [] });
-      }
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('Failed to get computers');
+          }
+          return res.json();
+        })
+        .then((content) => {
+          commit('updateComputers', { computers: content.data });
+          return true;
+        })
+        .catch((err) => {
+          commit('updateComputers', { computers: [] });
+          console.error(err);
+          dispatch('loadAuth');
+          return false;
+        });
     },
     async login({ commit, dispatch }, payload) {
       const { username, password } = payload;
@@ -98,18 +126,19 @@ export default new Vuex.Store<State>({
         dispatch('loadComputers');
         const content = await res.json();
         if (res.status < 400) {
-          console.log(content);
           commit('updateAuth', { isAuth: true, username: username });
           dispatch('pushMessage', {
             message: 'Login Successfully',
             variant: 'alert-success',
           });
+          return true;
         } else {
           console.error(content.message);
           dispatch('pushMessage', {
             message: content.message,
             variant: 'alert-danger',
           });
+          return false;
         }
       }
     },
@@ -128,7 +157,6 @@ export default new Vuex.Store<State>({
       });
       const content = await res.json();
       if (res.status < 400) {
-        console.log(content);
         dispatch('pushMessage', {
           message: 'Sign Up Successfully',
           variant: 'alert-success',
@@ -149,26 +177,36 @@ export default new Vuex.Store<State>({
     ) {
       const { name, mac, ip, port } = payload;
       if (name && mac) {
-        const res = await fetch('/api/computers', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, mac, ip, port }),
-        });
-        const content = await res.json();
-        if (res.status < 400) {
-          dispatch('pushMessage', {
-            message: 'New Computer Added',
-            variant: 'alert-success',
+        try {
+          const res = await fetch('/api/computers', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, mac, ip, port }),
           });
-          dispatch('loadComputers');
-        } else {
-          console.error(content.message);
-          console.error(content.error);
+          const content = await res.json();
+          if (res.status < 400) {
+            dispatch('pushMessage', {
+              message: 'New Computer Added',
+              variant: 'alert-success',
+            });
+            dispatch('loadComputers');
+          } else {
+            console.error(content.message);
+            console.error(content.error);
+            dispatch('pushMessage', {
+              message: content.message,
+              variant: 'alert-danger',
+            });
+            dispatch('loadAuth');
+          }
+        } catch (error) {
+          console.error(error);
+          dispatch('loadAuth');
           dispatch('pushMessage', {
-            message: content.message,
+            message: 'Failed to add computer',
             variant: 'alert-danger',
           });
         }
@@ -177,20 +215,25 @@ export default new Vuex.Store<State>({
       }
     },
     async deleteComputer({ dispatch }, payload: { id: number }) {
-      console.log(payload);
       if (payload.id) {
-        const res = await fetch(`/api/computers/${payload.id}`, {
-          method: 'DELETE',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        });
-        if (res.status < 400) {
-          dispatch('loadComputers');
-        } else {
-          console.error('Fail to delete');
-          console.error(res);
+        try {
+          const res = await fetch(`/api/computers/${payload.id}`, {
+            method: 'DELETE',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+          });
+          if (res.status < 400) {
+            dispatch('loadComputers');
+          } else {
+            console.error('Fail to delete');
+            console.error(res);
+            dispatch('loadAuth');
+          }
+        } catch (error) {
+          console.error(error);
+          dispatch('loadAuth');
         }
       }
     },
@@ -219,4 +262,5 @@ export default new Vuex.Store<State>({
     },
   },
   modules: {},
+  plugins: [vuexLocal.plugin],
 });
