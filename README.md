@@ -1,6 +1,6 @@
 # wol-web
 
-Deployment Instructions:
+[Deployment](#deployment)
 
 - [wol-web](#wol-web)
   - [Use Cases](#use-cases)
@@ -165,7 +165,7 @@ The docker image contains everything you need to run the app, including a wakeon
 ### docker run
 
 ```bash
-docker run -it -d --network=host --name wol-web -v ${PWD}/wol-web-data:/wol-server/data huakunshen/wol:latest
+docker run -d --network=host --name wol-web -v ${PWD}/wol-web-data:/wol-server/data huakunshen/wol:latest
 ```
 
 or just run `make deploy` (alias of the `docker run` command above).
@@ -216,7 +216,7 @@ check [backend](./backend/README.md) too.
 2. cd into this directory (wol-web)
 
 ```bash
-docker run -it -d \
+docker run -d \
   --network=host --name wol-web \
   -v ${PWD}/wol-web-data:/wol-server/data \
   --env-file backend/.env
@@ -226,7 +226,7 @@ docker run -it -d \
 #### Option 2
 
 ```bash
-docker run -it -d \
+docker run -d \
   --network=host --name wol-web \
   -v ${PWD}/wol-web-data:/wol-server/data \
   -e PORT=9091 \
