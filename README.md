@@ -165,7 +165,8 @@ The docker image contains everything you need to run the app, including a wakeon
 ### docker run
 
 ```bash
-docker run -d --network=host --name wol-web -v ${PWD}/wol-web-data:/wol-server/data huakunshen/wol:latest
+docker volume create wol
+docker run -d --network=docker run -d --network=host --restart=unless-stopped --name wol-web -v wol:/wol-server/data huakunshen/wol:latest
 ```
 
 or just run `make deploy` (alias of the `docker run` command above).
