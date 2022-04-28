@@ -11,6 +11,8 @@
     "nuxt": "3.0.0-rc.1"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.1.8",
+    "pinia": "^2.0.13",
     "primeicons": "^5.0.0",
     "primevue": "^3.12.6"
   }
