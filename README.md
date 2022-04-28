@@ -232,7 +232,7 @@ docker run -d \
   -v ${PWD}/wol-web-data:/wol-server/data \
   -e PORT=9091 \
   -e JWT_SECRET=wol-secret \
-  -e  JWT_VALID_TIME=20000 \
+  -e JWT_VALID_TIME=20000 \
   -e NUM_USER_ALLOWED=1 \
   huakunshen/wol:latest
 ```
