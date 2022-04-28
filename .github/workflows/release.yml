@@ -60,3 +60,6 @@ jobs:
           docker buildx build --push --platform linux/arm64/v8,linux/arm/v6,linux/arm/v7,linux/amd64 \
           -t ${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }} \
           -t ${{ env.IMAGE_NAME }}:latest .
+docker buildx build --push --platform linux/arm64/v8,linux/arm/v6,linux/arm/v7,linux/amd64 \
+  -t huakunshen/sample-hello-world:v0.0.1 \
+  -t huakunshen/sample-hello-world:latest .
