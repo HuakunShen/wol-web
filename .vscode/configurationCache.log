@@ -1,0 +1,1 @@
+{"buildTargets":["build","build-backend","build-frontend","buildx","clean","deploy","deploy-test","dev-backend","dev-frontend","download-frontend","run-db","update-image"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

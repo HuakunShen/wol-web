@@ -1,19 +1,55 @@
 {
+  "name": "frontend-v2",
+  "version": "0.0.1",
+  "description": "Wakeonlan Web Interface",
+  "productName": "WOL Web",
+  "author": "Huakun Shen <huakun.shen@huakunshen.com>",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview"
-  },
-  "devDependencies": {
-    "@nuxtjs/tailwindcss": "^5.0.3",
-    "nuxt": "3.0.0-rc.1"
+    "lint": "eslint --ext .js,.ts,.vue ./",
+    "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "build:pwa": "quasar build -m pwa",
+    "serve": "quasar serve"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.1.8",
-    "pinia": "^2.0.13",
-    "primeicons": "^5.0.0",
-    "primevue": "^3.12.6"
+    "@quasar/extras": "^1.0.0",
+    "@vueuse/core": "^8.9.4",
+    "axios": "^0.21.1",
+    "daisyui": "^2.19.1",
+    "pinia": "^2.0.11",
+    "quasar": "^2.6.0",
+    "vue": "^3.0.0",
+    "vue-i18n": "^9.0.0",
+    "vue-router": "^4.0.0"
+  },
+  "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^3.3.1",
+    "@quasar/app-vite": "^1.0.0",
+    "@types/node": "^12.20.21",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "autoprefixer": "^10.4.7",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "postcss": "^8.4.14",
+    "prettier": "^2.5.1",
+    "tailwindcss": "^3.1.6",
+    "typescript": "^4.5.4",
+    "workbox-build": "^6.5.0",
+    "workbox-cacheable-response": "^6.5.0",
+    "workbox-core": "^6.5.0",
+    "workbox-expiration": "^6.5.0",
+    "workbox-precaching": "^6.5.0",
+    "workbox-routing": "^6.5.0",
+    "workbox-strategies": "^6.5.0"
+  },
+  "engines": {
+    "node": "^18 || ^16 || ^14.19",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
   }
 }

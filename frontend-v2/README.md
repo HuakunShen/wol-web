@@ -1,42 +1,41 @@
-# Nuxt 3 Minimal Starter
+# WOL Web (frontend-v2)
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+Wakeonlan Web Interface
 
-## Setup
-
-Make sure to install the dependencies:
-
+## Install the dependencies
 ```bash
-# yarn
-yarn install
-
-# npm
+yarn
+# or
 npm install
-
-# pnpm
-pnpm install --shamefully-hoist
 ```
 
-## Development Server
-
-Start the development server on http://localhost:3000
-
+### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
-npm run dev
+quasar dev
 ```
 
-## Production
 
-Build the application for production:
-
+### Lint the files
 ```bash
-npm run build
+yarn lint
+# or
+npm run lint
 ```
 
-Locally preview production build:
 
+### Format the files
 ```bash
-npm run preview
+yarn format
+# or
+npm run format
 ```
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
+
+
+### Build the app for production
+```bash
+quasar build
+```
+
+### Customize the configuration
+See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
