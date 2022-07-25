@@ -1,63 +1,80 @@
 <template>
-  <q-page class="row justify-center">
-    <q-list class="mt-5">
-      <add-computer />
+  <q-page class="row justify-center px-2">
+    <q-list class="mt-3">
+      <add-computer @refresh="refresh" />
       <q-list>
         <computer-item
+          v-for="(computer, idx) in computers"
+          :key="idx"
           class="mt-3"
-          name="ubuntu"
-          mac="ff:ff:ff:ff:ff:ff"
-          :port="9"
-          ip="10.6.6.100"
-        />
-        <computer-item
-          class="mt-3"
-          name="ubuntu"
-          mac="ff:ff:ff:ff:ff:ff"
-          :port="9"
-          ip="10.6.6.100"
+          :name="computer.name"
+          :mac="computer.mac"
+          :port="computer.port"
+          :ip="computer.ip"
+          @wake="wake(computer.id)"
+          @delete="del(computer.id)"
         />
       </q-list>
     </q-list>
   </q-page>
 </template>
 
-<script lang="ts">
-import { Todo, Meta } from 'components/models';
+<script setup lang="ts">
 import AddComputer from 'src/components/AddComputer.vue';
-import { defineComponent, ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import ComputerItem from 'components/ComputerItem.vue';
+import { getComputers, wol, deleteComputer } from 'src/util/apis';
+import { useQuasar } from 'quasar';
+import { useAuthStore } from 'src/stores/auth';
+import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  name: 'IndexPage',
-  components: { ComputerItem, AddComputer },
-  setup() {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1',
-      },
-      {
-        id: 2,
-        content: 'ct2',
-      },
-      {
-        id: 3,
-        content: 'ct3',
-      },
-      {
-        id: 4,
-        content: 'ct4',
-      },
-      {
-        id: 5,
-        content: 'ct5',
-      },
-    ]);
-    const meta = ref<Meta>({
-      totalCount: 1200,
+const router = useRouter();
+const authStore = useAuthStore();
+const $q = useQuasar();
+
+const computers = ref<
+  { name: string; mac: string; port: number; ip: string; id: number }[]
+>([]);
+
+const refresh = () => {
+  getComputers().then((res) => {
+    console.log(res);
+    computers.value = res.data.data.map((c) => ({
+      name: c.name,
+      mac: c.mac,
+      ip: c.ip,
+      port: c.port,
+      id: c.id,
+    }));
+  });
+};
+
+const wake = (id: number) =>
+  wol(id)
+    .then(() => {
+      $q.notify({ message: 'Woke Up Computer', color: 'success' });
+    })
+    .catch((err) => {
+      $q.notify({ message: 'Error Waking Up Computer', color: 'red' });
     });
-    return { todos, meta };
-  },
+
+const del = (id: number) => {
+  deleteComputer(id)
+    .then(() => {
+      refresh();
+      $q.notify({ message: 'Deleted Computer', color: 'success' });
+    })
+    .catch((err) => {
+      $q.notify({ message: `Error Deleting Computer: ${err}`, color: 'red' });
+    });
+};
+
+onMounted(() => {
+  // if (!authStore.isAuth) {
+  //   router.push('/auth');
+  //   $q.notify({ message: 'Please Login', color: 'red' });
+  //   return;
+  // }
+  refresh();
 });
 </script>

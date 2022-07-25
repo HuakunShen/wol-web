@@ -156,7 +156,6 @@ func Login(ctx *fiber.Ctx) error {
 	}
 
 	token, err := CreateToken(user.Id, user.Username, uint(validMinutes))
-
 	if err != nil {
 		ctx.Status(fiber.StatusInternalServerError)
 		return ctx.JSON(fiber.Map{

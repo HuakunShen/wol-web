@@ -2,10 +2,20 @@
   <router-view />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { onMounted } from 'vue';
+import { useAuthStore, authStoreId } from './stores/auth';
 
-export default defineComponent({
-  name: 'App',
+const authStore = useAuthStore();
+
+onMounted(() => {
+  authStore.loadFromLocalStorage();
 });
+
+authStore.$subscribe(
+  () => {
+    localStorage.setItem(authStoreId, JSON.stringify(authStore.$state));
+  },
+  { detached: true }
+);
 </script>

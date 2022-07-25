@@ -15,13 +15,15 @@ func IsAuthenticated() func(*fiber.Ctx) error {
 		claims, err := controllers.ParseCookieJWT(tokenString)
 		if err != nil {
 			return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-				"message": "unauthorized",
+				"message": "err",
+				"error": err,
 			})
 		}
 		expDate, err := time.Parse(time.RFC3339, fmt.Sprintf("%v", claims["exp"]))
 		if err != nil {
 			return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"message": "Not Authorized",
+				"error": err,
 			})
 		}
 		if expDate.Before(time.Now()) {

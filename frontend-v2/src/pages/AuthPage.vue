@@ -30,6 +30,7 @@
                 class="w-72"
                 v-model="password"
                 label="Password"
+                type="password"
                 :rules="[nonEmptyInputRule]"
               />
               <q-btn
@@ -44,6 +45,12 @@
 
           <q-tab-panel name="signup">
             <q-form @submit="onSignUp" @reset="onReset" class="q-gutter-md">
+              <p>
+                Registration Quota: {{ userCount }} / {{ allowedUserCount }}
+              </p>
+              <p class="text-red" v-if="userCount === allowedUserCount">
+                You cannot register
+              </p>
               <q-input
                 class="w-72"
                 v-model="username"
@@ -54,12 +61,14 @@
                 class="w-72"
                 v-model="password"
                 label="Password"
+                type="password"
                 :rules="[nonEmptyInputRule]"
               />
               <q-input
                 class="w-72"
                 v-model="confirmPassword"
                 label="Confirm Password"
+                type="password"
                 :rules="[nonEmptyInputRule]"
               />
               <q-btn
@@ -77,22 +86,60 @@
   </q-page>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
-import LoginComponent from '../components/LoginComponent.vue';
+import { onMounted, ref } from 'vue';
+import axios from 'axios';
+import { useQuasar } from 'quasar';
+import { getComputers, getUserCount, loadAuth, login } from 'src/util/apis';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
 
+const authStore = useAuthStore();
+const router = useRouter();
+const $q = useQuasar();
 const tab = ref('login');
 const username = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 
+const userCount = ref<number>(0);
+const allowedUserCount = ref<number>(0);
+
+getUserCount().then((res) => {
+  userCount.value = res.data.data.user_count;
+  allowedUserCount.value = res.data.data.num_user_allowed;
+});
+
 const nonEmptyInputRule = (val: string) =>
   (val && val.length > 0) || 'Please type something';
 
 const onLogin = () => {
-  console.log('onLogin');
+  login(username.value, password.value)
+    .then(async (res) => {
+      authStore.setAuth(true);
+      $q.notify({ message: 'You are Logged In.', color: 'green' });
+      router.push('/');
+    })
+    .catch((err) => {
+      $q.notify({ message: `Error Loggin In: ${err}`, color: 'red' });
+    });
 };
 const onSignUp = () => {
-  console.log('onSignUp');
+  if (password.value !== confirmPassword.value) {
+    $q.notify({ message: "Passwords don't Match", color: 'red' });
+    return;
+  }
+  axios
+    .post('/api/users/register', {
+      username: username.value,
+      password: password.value,
+    })
+    .then((res) => {
+      console.log(res);
+      $q.notify({ message: 'User Created', color: 'green' });
+    })
+    .catch((err) => {
+      $q.notify({ message: `Error Creating User: ${err}`, color: 'red' });
+    });
 };
 const onReset = () => {
   username.value = '';

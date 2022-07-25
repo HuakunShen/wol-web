@@ -5,12 +5,17 @@
         <p class="col-span-2"><strong>Name: </strong>{{ props.name }}</p>
         <p class="col-span-2"><strong>IP: </strong>{{ props.ip }}</p>
         <div class="row items-center justify-center">
-          <q-btn round color="green" :icon="mdiArrowUpBox" />
+          <q-btn
+            round
+            color="green"
+            :icon="mdiArrowUpBox"
+            @click="emit('wake')"
+          />
         </div>
         <p class="col-span-2"><strong>Mac Address: </strong>{{ props.mac }}</p>
         <p class="col-span-2"><strong>Port: </strong>{{ props.port }}</p>
         <div class="row items-center justify-center">
-          <q-btn round color="red" :icon="mdiDelete" />
+          <q-btn round color="red" :icon="mdiDelete" @click="emit('delete')" />
         </div>
       </div>
     </q-card-section>
