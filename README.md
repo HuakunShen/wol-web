@@ -72,7 +72,7 @@ air                                     # start live reload
 #### Run backend with docker compose
 
 ```bash
-docker compose -f docker compose-helpers.yml run dev-backend
+docker compose -f docker docker-compose-helpers.yml run dev-backend
 ```
 
 or `make dev-backend`
@@ -89,7 +89,7 @@ The app can be hosted with docker which requires the machine to have `docker` an
 
 If you want to run it without docker (with native golang), see later sections: [Deploy Without Docker](#deploy-without-docker)
 
-Modify the image tags within `docker compose.yml` and `docker compose-helpers.yml` depend on what machine you are running.
+Modify the image tags within `docker compose.yml` and `docker docker-compose-helpers.yml` depend on what machine you are running.
 
 #### golang image:
 
@@ -130,7 +130,7 @@ npm run build
 If you don't have the dependencies installed, you can use **docker compose** to build the frontend production build.
 
 ```bash
-docker compose -f docker compose-helpers.yml run build-frontend
+docker compose -f docker docker-compose-helpers.yml run build-frontend
 ```
 
 ## Backend
