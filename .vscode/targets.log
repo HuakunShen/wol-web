@@ -213,7 +213,7 @@ build-backend:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 16):
-	docker-compose -f docker-compose-helpers.yml run build-backend && docker-compose -f docker-compose-helpers.yml down
+	docker compose -f docker compose-helpers.yml run build-backend && docker compose -f docker compose-helpers.yml down
 	
 
 # Not a target:
@@ -227,7 +227,7 @@ build-frontend:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 13):
-	docker-compose -f docker-compose-helpers.yml run build-frontend && docker-compose -f docker-compose-helpers.yml down
+	docker compose -f docker compose-helpers.yml run build-frontend && docker compose -f docker compose-helpers.yml down
 	
 
 clean:
@@ -235,8 +235,8 @@ clean:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 39):
-	docker-compose down
-	docker-compose -f docker-compose-helpers.yml down
+	docker compose down
+	docker compose -f docker compose-helpers.yml down
 	docker volume rm wol-web_wol-web-db
 	
 
@@ -246,7 +246,7 @@ dev-backend:
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 24):
 	mkdir -p data
-	docker-compose -f docker-compose-helpers.yml run dev-backend
+	docker compose -f docker compose-helpers.yml run dev-backend
 	
 
 deploy-test: update-image
@@ -262,7 +262,7 @@ run-db:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 31):
-	docker-compose run db
+	docker compose run db
 	
 
 dev-frontend:
@@ -270,7 +270,7 @@ dev-frontend:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 28):
-	docker-compose -f docker-compose-helpers.yml run dev-frontend
+	docker compose -f docker compose-helpers.yml run dev-frontend
 	
 
 deploy: update-image
