@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Sun Jul 24 13:24:50 2022
+# Make data base, printed on Mon Jul 25 02:01:08 2022
 
 # Variables
 
@@ -151,9 +148,9 @@ VSCODE_PID = 571
 
 # Directories
 
-# . (device 16777233, inode 4410031): 17 files, no impossibilities.
+# . (device 16777233, inode 4410031): 18 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -179,7 +176,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-28 01:39:00
+#  Last modified 2022-07-25 01:45:25
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -213,7 +210,7 @@ build-backend:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 16):
-	docker compose -f docker docker-compose-helpers.yml run build-backend && docker compose -f docker docker-compose-helpers.yml down
+	docker compose -f docker-compose-helpers.yml run build-backend && docker compose -f docker-compose-helpers.yml down
 	
 
 # Not a target:
@@ -227,7 +224,7 @@ build-frontend:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 13):
-	docker compose -f docker docker-compose-helpers.yml run build-frontend && docker compose -f docker docker-compose-helpers.yml down
+	docker compose -f docker-compose-helpers.yml run build-frontend && docker compose -f docker-compose-helpers.yml down
 	
 
 clean:
@@ -236,7 +233,7 @@ clean:
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 39):
 	docker compose down
-	docker compose -f docker docker-compose-helpers.yml down
+	docker compose -f docker-compose-helpers.yml down
 	docker volume rm wol-web_wol-web-db
 	
 
@@ -246,7 +243,7 @@ dev-backend:
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 24):
 	mkdir -p data
-	docker compose -f docker docker-compose-helpers.yml run dev-backend
+	docker compose -f docker-compose-helpers.yml run dev-backend
 	
 
 deploy-test: update-image
@@ -270,7 +267,7 @@ dev-frontend:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 28):
-	docker compose -f docker docker-compose-helpers.yml run dev-frontend
+	docker compose -f docker-compose-helpers.yml run dev-frontend
 	
 
 deploy: update-image
@@ -304,6 +301,8 @@ download-frontend:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Jul 24 13:24:50 2022
+# Finished Make data base on Mon Jul 25 02:01:08 2022
 
  
+make: *** No rule to make target `all'.  Stop.
+
