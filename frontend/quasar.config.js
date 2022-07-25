@@ -209,7 +209,7 @@ module.exports = configure(function (/* ctx */) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'frontend-v2',
+        appId: '',
       },
     },
 

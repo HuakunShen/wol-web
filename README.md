@@ -9,7 +9,7 @@
     - [Frontend](#frontend)
     - [Database](#database)
     - [Backend](#backend)
-      - [Run backend with docker compose](#run-backend-with-docker compose)
+      - [Run backend with docker compose](#run-backend-with-docker-compose)
     - [API Documentation](#api-documentation)
   - [Docker Environment](#docker-environment)
       - [golang image:](#golang-image)
@@ -17,7 +17,7 @@
   - [Build Frontend](#build-frontend)
     - [Build with Makefile (recommended)](#build-with-makefile-recommended)
     - [Manual Installation and Build](#manual-installation-and-build)
-    - [Build with docker compose (easier)](#build-with-docker compose-easier)
+    - [Build with docker compose (easier)](#build-with-docker-compose-easier)
   - [Backend](#backend-1)
   - [Deployment](#deployment)
     - [Docker Image](#docker-image)
@@ -72,7 +72,7 @@ air                                     # start live reload
 #### Run backend with docker compose
 
 ```bash
-docker compose -f docker docker-compose-helpers.yml run dev-backend
+docker compose -f docker-compose-helpers.yml run dev-backend
 ```
 
 or `make dev-backend`
@@ -130,7 +130,7 @@ npm run build
 If you don't have the dependencies installed, you can use **docker compose** to build the frontend production build.
 
 ```bash
-docker compose -f docker docker-compose-helpers.yml run build-frontend
+docker compose -f docker-compose-helpers.yml run build-frontend
 ```
 
 ## Backend

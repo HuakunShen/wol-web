@@ -1,4 +1,4 @@
-# WOL Web (frontend-v2)
+# WOL Web ()
 
 Wakeonlan Web Interface
 

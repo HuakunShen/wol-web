@@ -3,11 +3,11 @@ services:
   build-frontend:
     image: node:16
     volumes:
-      - .:/wol-web
+      - ./frontend:/wol-web
     entrypoint: sh -c
     command:
       - |
-        cd /wol-web/frontend-v2
+        cd /wol-web/
         rm -rf dist node_modules
         yarn install
         yarn build:pwa
