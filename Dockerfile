@@ -26,7 +26,7 @@ COPY --from=server-builder /go/src/.env /wol-server/.env
 # Copy wol cli
 COPY --from=wol-cli-builder /root/wol/wol /usr/local/bin
 # Copy frontend, make sure the production build of frontend is in ./frontend/dist/
-COPY ./frontend/dist/ /frontend/dist/
+COPY ./frontend-v2/dist/pwa/ /frontend/dist/
 EXPOSE 9090
 CMD ["./server"]
 
