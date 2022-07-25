@@ -30,7 +30,7 @@ func main() {
 		AllowCredentials: true,
 	}))
 
-	app.Static("/", "../frontend/dist")
+	app.Static("/", "../frontend/dist/pwa")
 	routes.Setup(app)
 
 	err = app.Listen(":" + port)

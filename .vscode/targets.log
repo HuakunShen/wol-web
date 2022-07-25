@@ -1,146 +1,267 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-# GNU Make 3.81
-# Copyright (C) 2006  Free Software Foundation, Inc.
-# This is free software; see the source for copying conditions.
-# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+make: *** No rule to make target 'all'.  Stop.
 
-# This program built for i386-apple-darwin11.3.0
+# GNU Make 4.3
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 25 02:01:08 2022
+# Make data base, printed on Mon Jul 25 02:13:19 2022
 
 # Variables
 
-# automatic
-<D = $(patsubst %/,%,$(dir $<))
-# automatic
-?F = $(notdir $?)
-# automatic
-?D = $(patsubst %/,%,$(dir $?))
-# automatic
-@D = $(patsubst %/,%,$(dir $@))
-# automatic
-@F = $(notdir $@)
-# makefile
-CURDIR := /Users/huakun/Documents/Dev/wol-web
-# makefile
-SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+GO111MODULE = on
 # environment
-_ = /usr/bin/make
-# environment
-WALLABY_PRODUCTION = true
-# makefile (from `Makefile', line 1)
-MAKEFILE_LIST :=  Makefile
-# environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
-# environment
-__CFBundleIdentifier = com.microsoft.VSCode
-# environment
-VSCODE_CWD = /
-# environment
-GOPROXY = https://proxy.golang.org,direct
-# environment
-PATH = /usr/local/go/bin:/usr/bin:/bin:/usr/sbin:/sbin
-# environment
-GOPATH = /Users/huakun/go
-# environment
-LaunchInstanceID = 5C861101-8D81-4A0D-A93F-0E87C420AE50
-# environment
-ELECTRON_RUN_AS_NODE = 1
-# default
-.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
-# environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Ser6SqIarq/Listeners
-# automatic
-%F = $(notdir $%)
-# environment
-PWD = /Users/huakun/Documents/Dev/wol-web
-# environment
-ORIGINAL_XDG_CURRENT_DESKTOP = undefined
-# environment
-GOMODCACHE = /Users/huakun/go/pkg/mod
-# environment
-HOME = /Users/huakun
-# default
-MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
-# environment
-VSCODE_CODE_CACHE_PATH = /Users/huakun/Library/Application Support/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
-# environment
-LOGNAME = huakun
-# environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environment
-VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# automatic
-^D = $(patsubst %/,%,$(dir $^))
-# environment
-XPC_FLAGS = 0x0
-# default
-MAKE = $(MAKE_COMMAND)
-# default
-MAKECMDGOALS := all
-# environment
-SHLVL = 1
-# default
-MAKE_VERSION := 3.81
-# environment
-USER = huakun
-# makefile
-.DEFAULT_GOAL := deploy
-# automatic
-%D = $(patsubst %/,%,$(dir $%))
-# default
-MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
-# default
-.VARIABLES := 
-# environment
-TMPDIR = /var/folders/8y/s9dkl02x5m91nx3hqnm3xd600000gn/T/
-# automatic
-*F = $(notdir $*)
-# environment
-VSCODE_IPC_HOOK = /Users/huakun/Library/Application Support/Code/1.69.2-main.sock
-# environment
-MallocNanoZone = 0
-# makefile
-MAKEFLAGS = Rrqp
-# environment
-MFLAGS = -Rrqp
-# automatic
-*D = $(patsubst %/,%,$(dir $*))
-# environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.65805321.65805327
-# automatic
-+D = $(patsubst %/,%,$(dir $+))
-# automatic
-+F = $(notdir $+)
-# environment
-__CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x52
-# environment
-COMMAND_MODE = unix2003
-# default
-MAKEFILES := 
-# automatic
-<F = $(notdir $<)
+GDK_BACKEND = x11
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 186b5
-# automatic
-^F = $(notdir $^)
-# default
-SUFFIXES := 
-# default
-.INCLUDE_DIRS = /usr/local/include
+GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-MAKELEVEL := 0
+SSH_AGENT_LAUNCHER = gnome-keyring
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# environment
+MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
+# environment
+__INTELLIJ_COMMAND_HISTFILE__ = /home/huakun/.cache/JetBrains/GoLand2022.1/terminal/history/backend-history1
+# environment
+VSCODE_CWD = /home/huakun/Desktop/wol-web
+# environment
+WINDOWPATH = 2
+# default
+MAKE_COMMAND := make
+# environment
+QT_ACCESSIBILITY = 1
+# environment
+GOPATH = /home/huakun/go
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /home/huakun/Desktop/wol-web
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# environment
+OLDPWD = /home/huakun/Desktop/wol-web/backend
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# automatic
+%F = $(notdir $%)
+# environment
+CONDA_PROMPT_MODIFIER = (base) 
+# environment
+VSCODE_CODE_CACHE_PATH = /home/huakun/.config/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
 # environment
 LANG = C
 # environment
-VSCODE_PID = 571
+XAUTHORITY = /run/user/1000/gdm/Xauthority
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
+# makefile
+MAKEFLAGS = pqrR
+# makefile
+CURDIR := /home/huakun/Desktop/wol-web
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+WALLABY_PRODUCTION = true
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+P9K_SSH = 0
+# environment
+XDG_SESSION_DESKTOP = ubuntu
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# environment
+CONDA_SHLVL = 1
+# automatic
+@F = $(notdir $@)
+# environment
+ZSH = /home/huakun/.oh-my-zsh
+# environment
+VSCODE_PID = 20120
+# environment
+XDG_SESSION_TYPE = x11
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+CONDA_PYTHON_EXE = /home/huakun/anaconda3/bin/python
+# environment
+SESSION_MANAGER = local/rog16-ubuntu:@/tmp/.ICE-unix/9894,unix/rog16-ubuntu:/tmp/.ICE-unix/9894
+# automatic
+*F = $(notdir $*)
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+P9K_TTY = old
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# environment
+CONDA_PREFIX = /home/huakun/anaconda3
+# makefile
+SHELL = /bin/sh
+# default
+MAKECMDGOALS := all
+# environment
+XMODIFIERS = @im=fcitx
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+SHLVL = 1
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = /usr/local/go/bin:/home/huakun/apps/google-cloud-cli-389.0.0-linux-x86_64/google-cloud-sdk/bin:/home/huakun/.yarn/bin:/home/huakun/.config/yarn/global/node_modules/.bin:/home/huakun/.local/bin:/home/huakun/anaconda3/bin:/home/huakun/anaconda3/condabin:/home/huakun/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+# default
+MAKEFILES := 
+# environment
+LANGUAGE = en_CA:en
+# automatic
+^F = $(notdir $^)
+# environment
+GOROOT = /usr/local/go
+# environment
+INVOCATION_ID = 987a9cda9fe2489ea24f49fc96cadb5f
+# environment
+USERNAME = huakun
+# automatic
+?F = $(notdir $?)
+# environment
+GTK_IM_MODULE = fcitx
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+# automatic
++F = $(notdir $+)
+# environment
+LESS = -R
+# environment
+DESKTOP_SESSION = ubuntu
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+CONDA_DEFAULT_ENV = base
+# environment
+CLUTTER_IM_MODULE = fcitx
+# environment
+LOGNAME = huakun
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /home/huakun/.local/share/applications/jetbrains-goland.desktop
+# makefile
+.DEFAULT_GOAL := deploy
+# environment
+SYSTEMD_EXEC_PID = 9921
+# environment
+DISPLAY = :1
+# environment
+USER = huakun
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+TERMINAL_EMULATOR = JetBrains-JediTerm
+# environment
+DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+# default
+MAKE_VERSION := 4.3
+# environment
+MANAGERPID = 2415
+# environment
+TERM_SESSION_ID = f639d4fb-6573-450a-a3ab-169de07d4fd4
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 12542
+# environment
+PAGER = less
+# environment
+_ = /usr/bin/code
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+# environment
+_CE_M = 
+# environment
+JOURNAL_STREAM = 8:60044
+# environment
+GOMODCACHE = /home/huakun/go/pkg/mod
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/huakun
+# environment
+QT_IM_MODULE = fcitx
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-4eefeb71-1.69.2-main.sock
+# environment
+TERM = xterm-256color
+# environment
+IM_CONFIG_PHASE = 1
+# environment
+GOPROXY = https://proxy.golang.org,direct
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# default
+SUFFIXES := 
+# environment
+_P9K_TTY = /dev/pts/1
+# environment
+VSCODE_CLI = 1
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+CONDA_EXE = /home/huakun/anaconda3/bin/conda
+# environment
+_CE_CONDA = 
+# environment
+GDMSESSION = ubuntu
 # variable set hash-table stats:
-# Load=64/1024=6%, Rehash=0, Collisions=2/88=2%
+# Load=124/1024=12%, Rehash=0, Collisions=7/154=5%
 
 # Pattern-specific Variable Values
 
@@ -148,9 +269,9 @@ VSCODE_PID = 571
 
 # Directories
 
-# . (device 16777233, inode 4410031): 18 files, no impossibilities.
+# . (device 66309, inode 24389830): 17 files, no impossibilities.
 
-# 18 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -158,60 +279,76 @@ VSCODE_PID = 571
 
 # Files
 
-# Not a target:
-all:
-#  Command-line target.
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-.SUFFIXES:
+deploy: update-image
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+#  recipe to execute (from 'Makefile', line 2):
+	docker run -it -d --network=host --name wol-web -v ${PWD}/wol-web-data:/wol-server/data huakunshen/wol:latest
+ 
 
-# Not a target:
-Makefile:
-#  Implicit rule search has been done.
-#  Last modified 2022-07-25 01:45:25
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-build: build-frontend build-backend
+download-frontend:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+#  recipe to execute (from 'Makefile', line 19):
+	rm -rf ./frontend/dist ./frontend/dist.zip
+	curl -s https://api.github.com/repos/HuakunShen/wol-web/releases/latest | grep "browser_download_url.*dist\.zip" | cut -d '"' -f 4 | xargs curl -L -o frontend/dist.zip
+	unzip ./frontend/dist.zip -d ./frontend
 
 update-image:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 8):
+#  recipe to execute (from 'Makefile', line 8):
 	docker pull huakunshen/wol:latest
-	
+
+deploy-test: update-image
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 5):
+	docker run -it --network=host --name wol-web -v ${PWD}/wol-web-data:/wol-server/data huakunshen/wol:latest
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-25 01:48:29.80317735
+#  File has been updated.
+#  Successfully updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 39):
+	docker compose down
+	docker compose -f docker-compose-helpers.yml down
+	docker volume rm wol-web_wol-web-db
+
+dev-backend:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 24):
+	mkdir -p data
+	docker compose -f docker-compose-helpers.yml run dev-backend
+
+build-frontend:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 13):
+	docker compose -f docker-compose-helpers.yml run build-frontend && docker compose -f docker-compose-helpers.yml down
 
 buildx: download-frontend
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 34):
+#  recipe to execute (from 'Makefile', line 34):
 	docker buildx build --push \
-	--platform linux/arm64/v8,linux/arm/v6,linux/arm/v7,linux/amd64 \
-	-t huakunshen/wol:latest .
-	
-
-build-backend:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 16):
-	docker compose -f docker-compose-helpers.yml run build-backend && docker compose -f docker-compose-helpers.yml down
-	
+		--platform linux/arm64/v8,linux/arm/v6,linux/arm/v7,linux/amd64 \
+		-t huakunshen/wol:latest .
 
 # Not a target:
 .DEFAULT:
@@ -219,90 +356,53 @@ build-backend:
 #  Modification time never checked.
 #  File has not been updated.
 
-build-frontend:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 13):
-	docker compose -f docker-compose-helpers.yml run build-frontend && docker compose -f docker-compose-helpers.yml down
-	
 
-clean:
+build: build-frontend build-backend
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 39):
-	docker compose down
-	docker compose -f docker-compose-helpers.yml down
-	docker volume rm wol-web_wol-web-db
-	
-
-dev-backend:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 24):
-	mkdir -p data
-	docker compose -f docker-compose-helpers.yml run dev-backend
-	
-
-deploy-test: update-image
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 5):
-	docker run -it --network=host --name wol-web -v ${PWD}/wol-web-data:/wol-server/data huakunshen/wol:latest
-	
-
-run-db:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 31):
-	docker compose run db
-	
 
 dev-frontend:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 28):
+#  recipe to execute (from 'Makefile', line 28):
 	docker compose -f docker-compose-helpers.yml run dev-frontend
-	
 
-deploy: update-image
+run-db:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 2):
-	docker run -it -d --network=host --name wol-web -v ${PWD}/wol-web-data:/wol-server/data huakunshen/wol:latest
-	
+#  recipe to execute (from 'Makefile', line 31):
+	docker compose run db
 
-download-frontend:
+build-backend:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 19):
-	rm -rf ./frontend/dist ./frontend/dist.zip
-	curl -s https://api.github.com/repos/HuakunShen/wol-web/releases/latest | grep "browser_download_url.*dist\.zip" | cut -d '"' -f 4 | xargs curl -L -o frontend/dist.zip
-	unzip ./frontend/dist.zip -d ./frontend
-	
+#  recipe to execute (from 'Makefile', line 16):
+	docker compose -f docker-compose-helpers.yml run build-backend && docker compose -f docker-compose-helpers.yml down
 
 # files hash-table stats:
-# Load=16/1024=2%, Rehash=0, Collisions=1/33=3%
+# Load=16/1024=2%, Rehash=0, Collisions=0/34=0%
 # VPATH Search Paths
 
-# No `vpath' search paths.
+# No 'vpath' search paths.
 
-# No general (`VPATH' variable) search path.
+# No general ('VPATH' variable) search path.
 
-# # of strings in strcache: 1
-# # of strcache buffers: 1
-# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
-# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+# strcache buffers: 1 (0) / strings = 34 / storage = 360 B / avg = 10 B
+# current buf: size = 8162 B / used = 360 B / count = 34 / avg = 10 B
 
-# Finished Make data base on Mon Jul 25 02:01:08 2022
+# strcache performance: lookups = 55 / hit rate = 38%
+# hash-table stats:
+# Load=34/8192=0%, Rehash=0, Collisions=0/55=0%
+# Finished Make data base on Mon Jul 25 02:13:19 2022
 
  
-make: *** No rule to make target `all'.  Stop.
-

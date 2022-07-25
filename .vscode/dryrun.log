@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/huakun/Documents/Dev/wol-web'
+make: Entering directory '/home/huakun/Desktop/wol-web'
 docker pull huakunshen/wol:latest
-docker run -it -d --network=host --name wol-web -v /Users/huakun/Documents/Dev/wol-web/wol-web-data:/wol-server/data huakunshen/wol:latest
-make: Leaving directory `/Users/huakun/Documents/Dev/wol-web'
+docker run -it -d --network=host --name wol-web -v /home/huakun/Desktop/wol-web/wol-web-data:/wol-server/data huakunshen/wol:latest
+make: Leaving directory '/home/huakun/Desktop/wol-web'
  
