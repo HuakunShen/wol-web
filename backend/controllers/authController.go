@@ -8,8 +8,8 @@ import (
 
 	"github.com/HuakunShen/wol-web/backend/database"
 	"github.com/HuakunShen/wol-web/backend/models"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 )
 
