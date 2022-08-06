@@ -220,7 +220,7 @@ check [backend](./backend/README.md) too.
 docker run -d \
   --network=host --name wol-web \
   -v ${PWD}/wol-web-data:/wol-server/data \
-  --env-file backend/.env
+  --env-file backend/.env \
   huakunshen/wol:latest
 ```
 
