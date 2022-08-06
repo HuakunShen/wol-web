@@ -19,18 +19,20 @@ export const clearAuthLocalStorage = () => {
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    isAuthenticated: false,
+    isAuth: false,
   }),
-  getters: { isAuth: (state) => state.isAuthenticated },
+  // getters: { isAuth: (state) => state.isAuthenticated },
   actions: {
     setAuth(isAuth: boolean) {
       console.log('isAuth', isAuth);
-      this.isAuthenticated = isAuth;
+      this.isAuth = isAuth;
     },
     loadFromLocalStorage() {
       const storage = loadAuthFromLocalStorage();
+      console.log(storage);
+
       if (storage) {
-        this.isAuthenticated = storage.isAuth;
+        this.isAuth = storage.isAuth;
       } else {
         this.setAuth(false);
       }

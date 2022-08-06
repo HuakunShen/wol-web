@@ -112,7 +112,7 @@ getUserCount().then((res) => {
 const nonEmptyInputRule = (val: string) =>
   (val && val.length > 0) || 'Please type something';
 
-const onLogin = () => {
+const onLogin = () =>
   login(username.value, password.value)
     .then(async (res) => {
       authStore.setAuth(true);
@@ -122,7 +122,7 @@ const onLogin = () => {
     .catch((err) => {
       $q.notify({ message: `Error Loggin In: ${err}`, color: 'red' });
     });
-};
+
 const onSignUp = () => {
   if (password.value !== confirmPassword.value) {
     $q.notify({ message: "Passwords don't Match", color: 'red' });
@@ -136,6 +136,7 @@ const onSignUp = () => {
     .then((res) => {
       console.log(res);
       $q.notify({ message: 'User Created', color: 'green' });
+      return onLogin();
     })
     .catch((err) => {
       $q.notify({ message: `Error Creating User: ${err}`, color: 'red' });

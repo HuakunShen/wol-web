@@ -37,16 +37,21 @@ const computers = ref<
 >([]);
 
 const refresh = () => {
-  getComputers().then((res) => {
-    console.log(res);
-    computers.value = res.data.data.map((c) => ({
-      name: c.name,
-      mac: c.mac,
-      ip: c.ip,
-      port: c.port,
-      id: c.id,
-    }));
-  });
+  getComputers()
+    .then((res) => {
+      console.log(res);
+      computers.value = res.data.data.map((c) => ({
+        name: c.name,
+        mac: c.mac,
+        ip: c.ip,
+        port: c.port,
+        id: c.id,
+      }));
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log(err.message);
+    });
 };
 
 const wake = (id: number) =>
@@ -70,11 +75,11 @@ const del = (id: number) => {
 };
 
 onMounted(() => {
-  // if (!authStore.isAuth) {
-  //   router.push('/auth');
-  //   $q.notify({ message: 'Please Login', color: 'red' });
-  //   return;
-  // }
+  if (!authStore.isAuth) {
+    router.push('/auth');
+    $q.notify({ message: 'Please Login', color: 'red' });
+    return;
+  }
   refresh();
 });
 </script>

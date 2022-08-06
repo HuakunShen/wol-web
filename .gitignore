@@ -21,3 +21,5 @@ frontend/dist.zip
 
 .idea
 *.db
+
+.vscode

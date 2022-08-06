@@ -39,13 +39,13 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <!-- <q-item-label header> Essential Links </q-item-label> -->
+        <q-item-label header> Essential Links </q-item-label>
 
-        <!-- <EssentialLink
-          v-for="link in essentialLinks"
+        <EssentialLink
+          v-for="link in linksList"
           :key="link.title"
           v-bind="link"
-        /> -->
+        />
       </q-list>
     </q-drawer>
 
@@ -82,11 +82,23 @@ const router = useRouter();
 const leftDrawerOpen = ref(false);
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
+    title: 'wol-web',
+    caption: 'GitHub',
+    icon: 'code',
+    link: 'https://github.com/HuakunShen/wol-web',
   },
+  {
+    title: 'Huakun Shen',
+    caption: 'Author',
+    icon: 'person',
+    link: 'https://huakunshen.com'
+  },
+  {
+    title: 'Sponsor Author',
+    caption: 'Sponsor Author',
+    icon: 'money',
+    link: 'https://github.com/sponsors/HuakunShen'
+  }
 ];
 
 const toggleColor = () => {

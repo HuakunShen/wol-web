@@ -65,7 +65,7 @@ cd backend
 mkdir -p data
 go get -u github.com/cosmtrek/air
 # add go/bin to path
-export PATH=/home/$USER/go/bin:$PATH    # on linux, similar on mac
+export PATH=$HOME/go/bin:$PATH    # on linux, similar on mac
 air                                     # start live reload
 ```
 
