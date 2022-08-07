@@ -32,7 +32,9 @@ func main() {
 
 	app.Static("/", "../frontend/dist/pwa")
 	routes.Setup(app)
-
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendFile("../frontend/dist/pwa/index.html")
+	})
 	err = app.Listen(":" + port)
 	if err != nil {
 		panic(err)

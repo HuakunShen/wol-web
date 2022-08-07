@@ -230,7 +230,7 @@ docker run -d \
 docker run -d \
   --network=host --name wol-web \
   -v ${PWD}/wol-web-data:/wol-server/data \
-  -e PORT=9091 \
+  -e PORT=9090 \
   -e JWT_SECRET=wol-secret \
   -e JWT_VALID_TIME=20000 \
   -e NUM_USER_ALLOWED=1 \
