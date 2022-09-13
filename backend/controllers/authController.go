@@ -7,9 +7,10 @@ import (
 	"time"
 
 	"github.com/HuakunShen/wol-web/backend/database"
+	"github.com/HuakunShen/wol-web/backend/middleware"
 	"github.com/HuakunShen/wol-web/backend/models"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -24,15 +25,15 @@ func Register(ctx *fiber.Ctx) error {
 	if err := database.DB.Model(&models.User{}).Count(&count).Error; err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Internal Server Error, DB Error",
-			"error": err,
+			"error":   err,
 		})
 	}
-	
+
 	num_user_allowed, err := strconv.Atoi(os.Getenv("NUM_USER_ALLOWED"))
 	if err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Fail to parse NUM_USER_ALLOWED env variable",
-			"error": err,
+			"error":   err,
 		})
 	}
 
@@ -48,7 +49,7 @@ func Register(ctx *fiber.Ctx) error {
 		ctx.Status(fiber.StatusBadRequest)
 		return ctx.JSON(fiber.Map{
 			"message": "invalid username or password",
-			"error": "invalid username or password",
+			"error":   "invalid username or password",
 		})
 	}
 	user := models.User{
@@ -59,13 +60,13 @@ func Register(ctx *fiber.Ctx) error {
 	if err := database.DB.Create(&user).Error; err != nil {
 		return ctx.Status(fiber.StatusConflict).JSON(fiber.Map{
 			"message": "Username Exists, Try Another One",
-			"error": err,
+			"error":   err,
 		})
 	}
 
 	return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "success",
-		"data": user,
+		"data":    user,
 	})
 }
 
@@ -74,53 +75,41 @@ func UserCount(ctx *fiber.Ctx) error {
 	if err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Fail to parse NUM_USER_ALLOWED env variable",
-			"error": err,
+			"error":   err,
 		})
 	}
 	var count int64
 	if err := database.DB.Model(&models.User{}).Count(&count).Error; err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Internal Server Error, DB Error",
-			"error": err,
+			"error":   err,
 		})
 	}
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "success",
 		"data": fiber.Map{
 			"num_user_allowed": num_user_allowed,
-			"user_count": count,
+			"user_count":       count,
 		},
 	})
 }
 
 func CreateToken(id uint, username string, validMinutes uint) (string, error) {
-	token := jwt.New(jwt.SigningMethodHS256)
-	// Set claims
-	claims := token.Claims.(jwt.MapClaims)
-	claims["username"] = username
-	claims["id"] = id
-	claims["exp"] = time.Now().Add(time.Minute * time.Duration(validMinutes))
-	// Generate encoded token and send it as response.
-	t, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
+	expirationTime := time.Now().Add(time.Minute * time.Duration(validMinutes))
+	claims := &middleware.AuthClaims{
+		Username: username,
+		Id:       strconv.Itoa(int(id)),
+		StandardClaims: jwt.StandardClaims{
+			// In JWT, the expiry time is expressed as unix milliseconds
+			ExpiresAt: expirationTime.Unix(),
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
 	if err != nil {
-		return t, err
+		return tokenString, err
 	}
-	return t, nil
-}
-
-func ParseCookieJWT(tokenString string) (jwt.MapClaims, error) {
-	claims := jwt.MapClaims{}
-	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte(os.Getenv("JWT_SECRET")), nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	claims, ok := token.Claims.(jwt.MapClaims)
-	if !ok {
-		return nil, fmt.Errorf("Fail to parse JWT")
-	}
-	return claims, nil
+	return tokenString, nil
 }
 
 func Login(ctx *fiber.Ctx) error {
@@ -129,7 +118,7 @@ func Login(ctx *fiber.Ctx) error {
 	if err := ctx.BodyParser(&data); err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Fail to Parse Request Body",
-			"error": err,
+			"error":   err,
 		})
 	}
 
@@ -138,7 +127,7 @@ func Login(ctx *fiber.Ctx) error {
 		fmt.Println(err)
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": "User Not Found",
-			"error": err,
+			"error":   err,
 		})
 	}
 
@@ -146,7 +135,7 @@ func Login(ctx *fiber.Ctx) error {
 		ctx.Status(fiber.StatusForbidden)
 		return ctx.JSON(fiber.Map{
 			"message": "Incorrect Password",
-			"error": err,
+			"error":   err,
 		})
 	}
 	validTimeMinutes := os.Getenv("JWT_VALID_TIME")
@@ -156,27 +145,25 @@ func Login(ctx *fiber.Ctx) error {
 	}
 
 	token, err := CreateToken(user.Id, user.Username, uint(validMinutes))
-
 	if err != nil {
 		ctx.Status(fiber.StatusInternalServerError)
 		return ctx.JSON(fiber.Map{
 			"message": "Could not Login, Server Error related to JWT",
-			"error": err,
+			"error":   err,
 		})
 	}
-
 	cookie := fiber.Cookie{
 		Name:     "jwt",
 		Value:    token,
 		Expires:  time.Now().Add(time.Minute * time.Duration(validMinutes)),
-		HTTPOnly: true,
+		HTTPOnly: false,
 	}
 
 	ctx.Cookie(&cookie)
 
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "success",
-		"data": user,
+		"data":    user,
 	})
 }
 
@@ -192,7 +179,7 @@ func User(ctx *fiber.Ctx) error {
 		fmt.Println(err)
 		return ctx.JSON(fiber.Map{
 			"message": "unauthenticated",
-			"error": err,
+			"error":   err,
 		})
 	}
 	claims, ok := token.Claims.(jwt.MapClaims)
@@ -205,10 +192,10 @@ func User(ctx *fiber.Ctx) error {
 	if err := database.DB.Where("username = ?", claims["username"]).First(&user).Error; err != nil {
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": "User Not Authenticated",
-			"error": err,
+			"error":   err,
 		})
 	}
-	return ctx.JSON(fiber.Map{"data": user, "message": "success",})
+	return ctx.JSON(fiber.Map{"data": user, "message": "success"})
 }
 
 func Logout(ctx *fiber.Ctx) error {

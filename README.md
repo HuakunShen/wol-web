@@ -9,7 +9,7 @@
     - [Frontend](#frontend)
     - [Database](#database)
     - [Backend](#backend)
-      - [Run backend with docker-compose](#run-backend-with-docker-compose)
+      - [Run backend with docker compose](#run-backend-with-docker-compose)
     - [API Documentation](#api-documentation)
   - [Docker Environment](#docker-environment)
       - [golang image:](#golang-image)
@@ -17,7 +17,7 @@
   - [Build Frontend](#build-frontend)
     - [Build with Makefile (recommended)](#build-with-makefile-recommended)
     - [Manual Installation and Build](#manual-installation-and-build)
-    - [Build with docker-compose (easier)](#build-with-docker-compose-easier)
+    - [Build with docker compose (easier)](#build-with-docker-compose-easier)
   - [Backend](#backend-1)
   - [Deployment](#deployment)
     - [Docker Image](#docker-image)
@@ -66,14 +66,14 @@ cd backend
 mkdir -p data
 go get -u github.com/cosmtrek/air
 # add go/bin to path
-export PATH=/home/$USER/go/bin:$PATH    # on linux, similar on mac
+export PATH=$HOME/go/bin:$PATH    # on linux, similar on mac
 air                                     # start live reload
 ```
 
-#### Run backend with docker-compose
+#### Run backend with docker compose
 
 ```bash
-docker-compose -f docker-compose-helpers.yml run dev-backend
+docker compose -f docker-compose-helpers.yml run dev-backend
 ```
 
 or `make dev-backend`
@@ -86,11 +86,11 @@ https://documenter.getpostman.com/view/UVRAJ7MZ?version=latest
 
 ## Docker Environment
 
-The app can be hosted with docker which requires the machine to have `docker` and `docker-compose` installed.
+The app can be hosted with docker which requires the machine to have `docker` and `docker compose` installed.
 
 If you want to run it without docker (with native golang), see later sections: [Deploy Without Docker](#deploy-without-docker)
 
-Modify the image tags within `docker-compose.yml` and `docker-compose-helpers.yml` depend on what machine you are running.
+Modify the image tags within `docker compose.yml` and `docker docker-compose-helpers.yml` depend on what machine you are running.
 
 #### golang image:
 
@@ -113,7 +113,7 @@ The frontend is written in vuejs and needs to be built manually to generate a `d
 ### Build with Makefile (recommended)
 
 ```bash
-make build-frontend     # exactly the same as the docker-compose method, just a simplified wrapper
+make build-frontend     # exactly the same as the docker compose method, just a simplified wrapper
 ```
 
 ### Manual Installation and Build
@@ -126,12 +126,12 @@ npm install
 npm run build
 ```
 
-### Build with docker-compose (easier)
+### Build with docker compose (easier)
 
-If you don't have the dependencies installed, you can use **docker-compose** to build the frontend production build.
+If you don't have the dependencies installed, you can use **docker compose** to build the frontend production build.
 
 ```bash
-docker-compose -f docker-compose-helpers.yml run build-frontend
+docker compose -f docker-compose-helpers.yml run build-frontend
 ```
 
 ## Backend
@@ -191,7 +191,7 @@ There 2 versions of Dockerfile used to build docker image.
 
 Environment Variables can be added/overwritten by:
 
-- adding `environment:` to `docker-compose` service or
+- adding `environment:` to `docker compose` service or
 - adding `-e env_name=env_value` to `docker run`
 
 The following variables are the default environment variables.
@@ -221,7 +221,7 @@ check [backend](./backend/README.md) too.
 docker run -d \
   --network=host --name wol-web \
   -v ${PWD}/wol-web-data:/wol-server/data \
-  --env-file backend/.env
+  --env-file backend/.env \
   huakunshen/wol:latest
 ```
 
@@ -231,7 +231,7 @@ docker run -d \
 docker run -d \
   --network=host --name wol-web \
   -v ${PWD}/wol-web-data:/wol-server/data \
-  -e PORT=9091 \
+  -e PORT=9090 \
   -e JWT_SECRET=wol-secret \
   -e JWT_VALID_TIME=20000 \
   -e NUM_USER_ALLOWED=1 \

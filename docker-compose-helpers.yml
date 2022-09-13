@@ -3,14 +3,14 @@ services:
   build-frontend:
     image: node:16
     volumes:
-      - .:/wol-web
+      - ./frontend:/wol-web
     entrypoint: sh -c
     command:
       - |
-        cd /wol-web/frontend
+        cd /wol-web/
         rm -rf dist node_modules
-        npm ci
-        npm run build
+        yarn install
+        yarn build:pwa
   dev-frontend:
     image: node:16
     volumes:

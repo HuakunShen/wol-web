@@ -60,8 +60,11 @@ func AddComputer(ctx *fiber.Ctx) error {
 }
 
 func GetComputer(ctx *fiber.Ctx) error {
+	fmt.Println("GetComputer")
 	id := ctx.Params("id")
 	userId := ctx.Locals("id")
+	fmt.Println(id)
+	fmt.Println(userId)
 	var computer models.Computer
 	if err := database.DB.Where("id = ?", id).Where("user_id = ?", userId).First(&computer).Error; err != nil {
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
@@ -81,6 +84,7 @@ func GetComputers(ctx *fiber.Ctx) error {
 			"error": err,
 		})
 	}
+	
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{"data": computers})
 }
 

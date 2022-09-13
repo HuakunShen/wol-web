@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     volumes:
       - .:/wol-web
+      - ./frontend:/frontend
     entrypoint: sh -c
     command:
       - |

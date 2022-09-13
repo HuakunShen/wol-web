@@ -1,42 +1,36 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
-import store from '../store/index'
+import { route } from 'quasar/wrappers';
+import {
+  createMemoryHistory,
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from 'vue-router';
 
-Vue.use(VueRouter)
+import routes from './routes';
 
-const routes: Array<RouteConfig> = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    beforeEnter: (to, from, next) => {
-      if (!store.state.auth.isAuth) next({ name: 'Login' })
-      else next()
-    }
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.auth.isAuth) next({ name: 'Home' })
-      else next()
-    }
-  },
-  {
-    path: '/signup',
-    name: 'Sign Up',
-    component: () => import('../views/Signup.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.auth.isAuth) next({ name: 'Home' })
-      else next()
-    }
-  }
-]
+/*
+ * If not building with SSR mode, you can
+ * directly export the Router instantiation;
+ *
+ * The function below can be async too; either use
+ * async/await or return a Promise which resolves
+ * with the Router instance.
+ */
 
-const router = new VueRouter({
-  routes
-})
+export default route(function (/* { store, ssrContext } */) {
+  // const createHistory = process.env.SERVER
+  //   ? createMemoryHistory
+  //   : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
+  const createHistory = createWebHistory;
+  const Router = createRouter({
+    scrollBehavior: () => ({ left: 0, top: 0 }),
+    routes,
 
-export default router
+    // Leave this as is and make changes in quasar.conf.js instead!
+    // quasar.conf.js -> build -> vueRouterMode
+    // quasar.conf.js -> build -> publicPath
+    history: createHistory(process.env.VUE_ROUTER_BASE),
+  });
+
+  return Router;
+});
