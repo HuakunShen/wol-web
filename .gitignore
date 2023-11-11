@@ -23,3 +23,6 @@ frontend/dist.zip
 *.db
 
 .vscode
+.yarn
+yarn.lock
+.yarnrc.yml
