@@ -118,12 +118,12 @@ make build-frontend     # exactly the same as the docker compose method, just a 
 
 ### Manual Installation and Build
 
-If you have nodejs 15+, npm on your machine, you can cd into **frontend** and run
+If you have nodejs 15+, npm on your machine, you can cd into **frontend**
 
 ```bash
-sudo npm install -g @vue/cli        # if you don't have vue on your machine.
+cd frontend
 npm install
-npm run build
+npm run build:pwa
 ```
 
 ### Build with docker compose (easier)
