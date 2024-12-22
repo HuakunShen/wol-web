@@ -1,0 +1,7 @@
+{
+  "name": "server",
+  "type": "module",
+  "scripts": {
+    "dev": "air"
+  }
+}
