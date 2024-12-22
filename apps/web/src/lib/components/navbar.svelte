@@ -10,6 +10,13 @@
 		pb.authStore.clear();
 		goto('/auth');
 	}
+
+	let isAuth = $state(pb.authStore.isValid);
+
+	$effect(() => {
+		page.url.pathname;
+		isAuth = pb.authStore.isValid;
+	});
 </script>
 
 <div
@@ -38,7 +45,11 @@
 			Auth
 		</a>
 	</div>
-	<Button size="icon" variant="outline" class="" onclick={logout}>
-		<LogOut />
-	</Button>
+	{#if isAuth}
+		<Button size="icon" variant="outline" class="" onclick={logout}>
+			<LogOut />
+		</Button>
+	{:else}
+		<span></span>
+	{/if}
 </div>
