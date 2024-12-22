@@ -4,7 +4,7 @@
 >
 > This is a rewrite with sveltekit + PocketBase to replace the old version I wrote a few years ago
 >
-> PocketBase comes with Auth and supports Golang extension, so I don't need to write golang code to manage the database myself. PocketBase also has a built-in database management UI, making user creation much easier.
+> In the new rewrite, instead of writing an entire rest API server and manage database with gorm, I use PocketBase as backend and database. Its golang extension feature allows me to add the wakeonlan feature easily. The most complicated part, Auth, is also fully handled by PocketBase, saving lots of time. PocketBase also has a built-in database management UI, making user creation/management much easier.
 
 ![](https://i.imgur.com/93GMAf8.png)
 
