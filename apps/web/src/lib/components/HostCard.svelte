@@ -8,11 +8,11 @@
 
 	let { host, class: className }: { host: HostsRecord; class?: string } = $props();
 
-	function wake(e: Event) {
+	function wake() {
 		hostsStore.wakeHost(host);
 	}
 
-	function deleteHost(e: Event) {
+	function deleteHost() {
 		hostsStore.deleteHost(host);
 	}
 </script>
@@ -35,7 +35,12 @@
 		</div>
 	</Card.Content>
 	<Card.Footer class="flex justify-between gap-2">
-		<Button size="sm" variant="outline" class="w-full bg-green-400/60" onclick={wake}>
+		<Button
+			size="sm"
+			variant="outline"
+			class="w-full bg-green-400/60 hover:bg-green-400/40"
+			onclick={wake}
+		>
 			<BellRing class="h-4 w-4" />
 		</Button>
 		<Button size="sm" variant="destructive" class="w-full" onclick={deleteHost}>

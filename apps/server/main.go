@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -65,13 +64,12 @@ func main() {
 			if recordOwnerId != userId {
 				return e.JSON(401, map[string]string{"message": "Unauthorized"})
 			}
-			macValue := requestedHost.GetString("mac")
-			portValue := requestedHost.GetInt("port")
-			fmt.Println("portValue", portValue)
+			mac := requestedHost.GetString("mac")
+			port := requestedHost.GetInt("port")
 			if !ok {
 				return e.JSON(400, map[string]string{"message": "Failed to parse port"})
 			}
-			err = wol.WakeOnLan(macValue, "255.255.255.255", strconv.Itoa(portValue))
+			err = wol.WakeOnLan(mac, "255.255.255.255", strconv.Itoa(port))
 			if err != nil {
 				return e.JSON(400, map[string]string{"message": "Failed to wake host", "error": err.Error()})
 			}

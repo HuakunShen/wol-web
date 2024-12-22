@@ -19,6 +19,7 @@ Both `linux/amd64` and `linux/arm64` are supported.
 > [!IMPORTANT]
 > 1. The container must be in the same network as the target hosts
 > 2. The container must be started with `--network=host`
+> 3. Mac doesn't support `--network=host` with docker. On Mac you have to run server with go directly. It's recommended to use linux.
 
 ### Step 1: Start Server
 
