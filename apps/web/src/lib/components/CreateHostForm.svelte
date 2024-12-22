@@ -8,6 +8,7 @@
 	import { toast } from 'svelte-sonner';
 	import { cn } from '$lib/utils';
 	import { pb } from '$lib/pb';
+	import { dev } from '$app/environment';
 	import { hostsStore } from '$lib/stores/hosts';
 
 	const formSchema = z.object({
@@ -87,6 +88,12 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button class="my-1 w-full">Create</Form.Button>
-	<SuperDebug data={$formData} />
+	<Form.Button
+		class={cn('my-1 w-full', {
+			'col-span-2': dev
+		})}>Create</Form.Button
+	>
+	{#if dev}
+		<!-- <SuperDebug data={$formData} /> -->
+	{/if}
 </form>

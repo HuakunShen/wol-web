@@ -21,5 +21,5 @@ COPY --from=web_builder /app/apps/web/build ./pb_public
 EXPOSE 8090
 
 CMD ["/app/server", "serve", "--http=0.0.0.0:8090"]
-# docker build . -t huakun/wol-web:latest --platform=linux/amd64
-# docker run -p 8090:8090 --rm huakun/wol-web:latest
+# docker build . -t huakun/wol:latest
+# docker run -p 8090:8090 --rm huakun/wol:latest
