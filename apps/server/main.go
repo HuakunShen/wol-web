@@ -18,6 +18,7 @@ import (
 
 func main() {
 	app := pocketbase.New()
+
 	// loosely check if it was executed using "go run"
 	isGoRun := strings.HasPrefix(os.Args[0], os.TempDir())
 
@@ -30,7 +31,6 @@ func main() {
 	app.OnServe().BindFunc(func(se *core.ServeEvent) error {
 		// serves static files from the provided public dir (if exists)
 		se.Router.GET("/{path...}", apis.Static(os.DirFS("./pb_public"), true))
-		// se.Router.GET("/auth", apis.Static(os.DirFS("./pb_public/auth.html"), false))
 		se.Router.GET("/api/hosts", func(e *core.RequestEvent) error {
 			return e.JSON(200, map[string]string{"message": "Host waked"})
 		})
