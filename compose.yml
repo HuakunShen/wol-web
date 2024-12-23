@@ -1,0 +1,13 @@
+services:
+  wol:
+    image: "huakunshen/wol"
+    container_name: wol-web
+    ports:
+      - "8090:8090"
+    volumes:
+      - wol_data:/app/pb_data
+    environment:
+      - SUPERUSER_EMAIL=root@example.com
+      - SUPERUSER_PASSWORD=changeme
+volumes:
+  wol_data:

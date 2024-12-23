@@ -8,7 +8,7 @@
 
 ![](https://i.imgur.com/93GMAf8.png)
 
-## Deployment
+## Deployment (Docker)
 
 Deployment with docker is super simple.
 
@@ -64,6 +64,28 @@ The superuser we discussed previously is like a database admin, you need to crea
 You can go to `http://localhost:8090/auth` and login with your regular user credentials.
 
 Create a host then your can wake up your computer from browser.
+
+## Deployment (docker compose)
+
+Docker compose makes creating and destroying wol container easier. 
+
+A [compose.yml](./compose.yml) is provided in this repo.
+
+```yaml
+services:
+  wol:
+    image: "huakunshen/wol"
+    container_name: wol-web
+    ports:
+      - "8090:8090"
+    volumes:
+      - wol_data:/app/pb_data
+    environment:
+      - SUPERUSER_EMAIL=root@example.com
+      - SUPERUSER_PASSWORD=changeme
+volumes:
+  wol_data:
+```
 
 ## Develop
 
