@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	import { PUBLIC_PB_URL } from '$env/static/public';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
@@ -9,6 +8,7 @@
 	import { toast } from 'svelte-sonner';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 
 	let email = $state('');
 	let password = $state('');
@@ -39,8 +39,7 @@
 		<form onsubmit={login}>
 			<Card.Header>
 				<Card.Title>Login</Card.Title>
-				<Card.Description
-					class="flex items-center justify-between"
+				<Card.Description class="flex items-center justify-between"
 					>Login to your account
 
 					<Popover.Root>
@@ -51,7 +50,8 @@
 							<Card.Description
 								>Account can only be created by admin from <a
 									target="_blank"
-									href={`${PUBLIC_PB_URL}/_/`}>{PUBLIC_PB_URL}/_/</a
+									href={`${page.url.protocol}//${page.url.host}/_/`}
+									>{page.url.protocol}//{page.url.host}/_/</a
 								>
 							</Card.Description>
 						</Popover.Content>
