@@ -8,6 +8,7 @@
 	import { toast } from 'svelte-sonner';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { goto } from '$app/navigation';
+	import { dev } from '$app/environment';
 	import { page } from '$app/state';
 
 	let email = $state('');
@@ -47,12 +48,13 @@
 							<Info />
 						</Popover.Trigger>
 						<Popover.Content class="w-80">
+							{@const pbAdminUrl = dev
+								? 'http://localhost:8090'
+								: page.url.protocol + '//' + page.url.host + '/_/'}
 							<Card.Description
-								>Account can only be created by admin from <a
-									target="_blank"
-									href={`${page.url.protocol}//${page.url.host}/_/`}
-									>{page.url.protocol}//{page.url.host}/_/</a
-								>
+								>Account can only be created by admin from <a target="_blank" href={pbAdminUrl}>
+									{pbAdminUrl}
+								</a>
 							</Card.Description>
 						</Popover.Content>
 					</Popover.Root>
@@ -62,7 +64,7 @@
 				<div class="grid w-full items-center gap-4">
 					<div class="flex flex-col space-y-1.5">
 						<Label for="email">Email</Label>
-						<Input id="email" placeholder="Email" bind:value={email} />
+						<Input id="email" placeholder="Email" bind:value={email} autofocus />
 					</div>
 					<div class="flex flex-col space-y-1.5">
 						<Label for="password">Password</Label>
