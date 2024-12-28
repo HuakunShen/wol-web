@@ -1,4 +1,3 @@
-import { PUBLIC_PB_URL } from '$env/static/public';
 import { pb } from '$lib/pb';
 import type { HostsRecord, RecordIdString } from '$lib/pocketbase-types';
 import { toast } from 'svelte-sonner';
