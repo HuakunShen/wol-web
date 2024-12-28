@@ -63,7 +63,7 @@ The superuser we discussed previously is like a database admin, you need to crea
 
 You can go to `http://localhost:8090/auth` and login with your regular user credentials.
 
-Create a host then your can wake up your computer from browser.
+Create a host then you can wake up your computer from browser.
 
 ## Deployment (docker compose)
 
@@ -85,6 +85,11 @@ services:
       - SUPERUSER_PASSWORD=changeme
 volumes:
   wol_data:
+```
+
+```bash
+docker compose up
+docker compose down
 ```
 
 ## Develop
