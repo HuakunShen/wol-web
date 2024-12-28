@@ -57,13 +57,13 @@ The 2 environment variables and volume are optional but recommended.
 The superuser we discussed previously is like a database admin, you need to create a regular user to login to the website.
 
 1. Go to [`http://localhost:8090/_/`](http://localhost:8090/_/) (or the url of your environment), login with superuser credentials
-2. Go to `users` collection, create a user, remember your emial and password
+2. Go to `users` collection, create a user, remember your email and password
 
 ### Step 3: Login to WOL Web
 
 You can go to `http://localhost:8090/auth` and login with your regular user credentials.
 
-Create a host then your can wake up your computer from browser.
+Create a host then you can wake up your computer from browser.
 
 ## Deployment (docker compose)
 
@@ -85,6 +85,11 @@ services:
       - SUPERUSER_PASSWORD=changeme
 volumes:
   wol_data:
+```
+
+```bash
+docker compose up
+docker compose down
 ```
 
 ## Develop
