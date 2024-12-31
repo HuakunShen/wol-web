@@ -1,4 +1,3 @@
-
 FROM golang:1.23 AS server_builder
 WORKDIR /app
 COPY ./apps/server /app
@@ -18,8 +17,10 @@ WORKDIR /app
 COPY --from=server_builder /app/server ./server
 COPY --from=web_builder /app/apps/web/build ./pb_public
 
-EXPOSE 8090
+# Add environment variable with default value
+ENV PORT=8090
+EXPOSE $PORT
 
-CMD ["/app/server", "serve", "--http=0.0.0.0:8090"]
-# docker build . -t huakun/wol:latest
-# docker run -p 8090:8090 --rm huakun/wol:latest
+CMD ["/bin/sh", "-c", "/app/server serve --http=0.0.0.0:${PORT}"]
+# docker build . -t huakunshen/wol:latest
+# docker run -p 8090:8090 --rm huakunshen/wol:latest
