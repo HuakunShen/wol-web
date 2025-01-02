@@ -26,8 +26,9 @@ Both `linux/amd64` and `linux/arm64` are supported.
 Here is a full command to start the server with a superuser initialized
 
 ```bash
-docker run -p 8090:8090 --rm \
+docker run --rm \
   --network=host \
+  -e PORT=8090 \
   -e SUPERUSER_EMAIL=<root@example.com> \
   -e SUPERUSER_PASSWORD=<your password> \
   -v ./pb_data:/app/pb_data \
@@ -41,6 +42,9 @@ The 2 environment variables and volume are optional but recommended.
 
 - The volume is for data persistence, so you don't lose your data after container is destroyed.
   - Instead of using a local directory, it's better to create a volume and bind to it.
+- `PORT` environment variable is used to specify the port the server listens on
+  - Default is 8090
+  - Since this app has to be run in host network, you can't set port mapping with `-p` option; thus the `PORT` environment variable can be used to change the port.
 - The 2 environment variables are used to create an initial superuser in database
   - This project uses pocketbase as its backend and database, there is no user register feature as we shouldn't allow random person to register and send magic packets in your network. The only way to create user is log into pocketbase admin console with a superuser account and manually create user in the `users` collection/table.
   - When both `SUPERUSER_EMAIL` and `SUPERUSER_PASSWORD` are set, the server will create this superuser the first time it starts and you could login directly.
@@ -76,13 +80,13 @@ services:
   wol:
     image: "huakunshen/wol"
     container_name: wol-web
-    ports:
-      - "8090:8090"
+    network_mode: host
     volumes:
       - wol_data:/app/pb_data
     environment:
       - SUPERUSER_EMAIL=root@example.com
       - SUPERUSER_PASSWORD=changeme
+      - PORT=8090
 volumes:
   wol_data:
 ```
