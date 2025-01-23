@@ -1,4 +1,5 @@
 IMAGE_NAME ?= huakunshen/wol:latest
+.phony: buildx buildx-podman
 buildx:
 	docker buildx build --push \
 		--platform linux/arm64,linux/amd64 \
