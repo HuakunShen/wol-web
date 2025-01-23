@@ -1,17 +1,17 @@
-FROM golang:1.23 AS server_builder
+FROM docker.io/library/golang:1.23 AS server_builder
 WORKDIR /app
 COPY ./apps/server /app
 RUN CGO_ENABLED=0 GOOS=linux go build -o server main.go
 
 
-FROM oven/bun:1 AS web_builder
+FROM docker.io/oven/bun:1 AS web_builder
 WORKDIR /app
 COPY . .
 RUN bun install
 RUN bun run build
 
 
-FROM alpine:latest
+FROM docker.io/library/alpine:latest
 # FROM ubuntu:latest
 WORKDIR /app
 COPY --from=server_builder /app/server ./server
