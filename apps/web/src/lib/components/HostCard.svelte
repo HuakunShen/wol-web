@@ -24,7 +24,7 @@
 				Name: <span class="font-mono font-medium">{host.name}</span>
 			</p>
 			<p class="text-md font-bold">
-				IP Address: <span class="font-mono font-medium">{host.ip}</span>
+				Broadcast IP: <span class="font-mono font-medium">{host.ip}</span>
 			</p>
 			<p class="text-md font-bold">
 				Mac Address: <span class="font-mono font-medium">{host.mac}</span>
