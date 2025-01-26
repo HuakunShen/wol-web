@@ -69,7 +69,8 @@ func main() {
 			if !ok {
 				return e.JSON(400, map[string]string{"message": "Failed to parse port"})
 			}
-			err = wol.WakeOnLan(mac, "255.255.255.255", strconv.Itoa(port))
+                        targetIp:= requestedHost.GetString("ip")
+			err = wol.WakeOnLan(mac, targetIp, strconv.Itoa(port))
 			if err != nil {
 				return e.JSON(400, map[string]string{"message": "Failed to wake host", "error": err.Error()})
 			}
