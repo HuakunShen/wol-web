@@ -6,7 +6,7 @@
 >
 > In the new rewrite, instead of writing an entire rest API server and manage database with gorm, I use PocketBase as backend and database. Its golang extension feature allows me to add the wakeonlan feature easily. The most complicated part, Auth, is also fully handled by PocketBase, saving lots of time. PocketBase also has a built-in database management UI, making user creation/management much easier.
 
-![](https://i.imgur.com/93GMAf8.png)
+![](https://i.imgur.com/2pGGr1Z.png)
 
 ## Deployment (Docker)
 
