@@ -13,12 +13,22 @@
 	}
 
 	function deleteHost() {
-		hostsStore.deleteHost(host);
+		if (window.confirm('Are you sure you want to delete this host?')) {
+			hostsStore.deleteHost(host);
+		}
 	}
 </script>
 
-<Card.Root class={cn(className)}>
+<Card.Root class={cn('relative', className)}>
 	<Card.Content>
+		<Button
+			size="icon"
+			class="absolute right-2 top-2 h-6 w-6 rounded-full"
+			variant="destructive"
+			onclick={deleteHost}
+		>
+			<Trash2 class="h-3 w-3" />
+		</Button>
 		<div class={cn('grid grid-cols-2 gap-2', className)}>
 			<p class="text-md font-bold">
 				Name: <span class="font-mono font-medium">{host.name}</span>
@@ -42,9 +52,6 @@
 			onclick={wake}
 		>
 			<BellRing class="h-4 w-4" />
-		</Button>
-		<Button size="sm" variant="destructive" class="w-full" onclick={deleteHost}>
-			<Trash2 class="h-4 w-4" />
 		</Button>
 	</Card.Footer>
 </Card.Root>

@@ -2,11 +2,9 @@
 	import { goto } from '$app/navigation';
 	import CreateHostForm from '$lib/components/CreateHostForm.svelte';
 	import HostCard from '$lib/components/HostCard.svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
 	import { pb } from '$lib/pb';
 	import { hostsStore } from '$lib/stores/hosts';
 	import autoAnimate from '@formkit/auto-animate';
-	import { onMount } from 'svelte';
 
 	$effect(() => {
 		if (pb.authStore.isValid) {
